@@ -31,5 +31,11 @@ class CategoryDetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    //MARK: Actions
+    
+    @IBAction func unWindToCategoryDetail(sender: UIStoryboardSegue) {
+        
+    }
 
 }

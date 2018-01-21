@@ -62,6 +62,12 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         categories += [category1]
     }
     
+    //MARK: Actions
+    
+    @IBAction func unwindToCategoriesList(sender: UIStoryboardSegue) {
+        
+    }
+    
 
 
 }

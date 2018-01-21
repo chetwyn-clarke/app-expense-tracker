@@ -13,6 +13,7 @@ class Category {
     //MARK: Properties
     
     var name: String
+    var startingAmount: Double?
     
     init(name: String) {
         self.name = name
