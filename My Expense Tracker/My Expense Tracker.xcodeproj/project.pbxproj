@@ -15,6 +15,8 @@
 		73BCD0672014137F00CCF8F5 /* My_Expense_TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BCD0662014137F00CCF8F5 /* My_Expense_TrackerTests.swift */; };
 		73BCD0722014137F00CCF8F5 /* My_Expense_TrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BCD0712014137F00CCF8F5 /* My_Expense_TrackerUITests.swift */; };
 		73E20448201509240085FE3B /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E20447201509240085FE3B /* CategoryDetailViewController.swift */; };
+		73E2044A201511100085FE3B /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E20449201511100085FE3B /* CategoryTableViewCell.swift */; };
+		73E2044C201511F80085FE3B /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2044B201511F80085FE3B /* Category.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		73BCD0712014137F00CCF8F5 /* My_Expense_TrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = My_Expense_TrackerUITests.swift; sourceTree = "<group>"; };
 		73BCD0732014137F00CCF8F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73E20447201509240085FE3B /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
+		73E20449201511100085FE3B /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		73E2044B201511F80085FE3B /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,7 @@
 		73AE7ECE2015030D00F3B9D8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				73E20449201511100085FE3B /* CategoryTableViewCell.swift */,
 			);
 			name = View;
 			path = "New Group";
@@ -96,6 +101,7 @@
 		73AE7ECF2015032000F3B9D8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				73E2044B201511F80085FE3B /* Category.swift */,
 			);
 			name = Model;
 			path = "New Group1";
@@ -289,8 +295,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				73E20448201509240085FE3B /* CategoryDetailViewController.swift in Sources */,
+				73E2044C201511F80085FE3B /* Category.swift in Sources */,
 				73BCD0542014137F00CCF8F5 /* CategoryViewController.swift in Sources */,
 				73BCD0522014137F00CCF8F5 /* AppDelegate.swift in Sources */,
+				73E2044A201511100085FE3B /* CategoryTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
