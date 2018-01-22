@@ -109,12 +109,16 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="9e5-dA-s9M" firstAttribute="top" secondItem="40r-4o-Q0F" secondAttribute="top" constant="44" id="Gcs-UA-wWH"/>
                             <constraint firstItem="40r-4o-Q0F" firstAttribute="trailing" secondItem="9e5-dA-s9M" secondAttribute="trailing" constant="16" id="Hfu-gw-c7m"/>
                             <constraint firstItem="9e5-dA-s9M" firstAttribute="leading" secondItem="40r-4o-Q0F" secondAttribute="leading" constant="16" id="ccZ-Qv-56Z"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="40r-4o-Q0F"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ZsX-Ot-gi5" appends="YES" id="GJD-jB-CQ4"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Add Category" id="hvB-qH-RT0">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="eZO-0z-vVz">
@@ -132,6 +136,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dRb-ZV-mPy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="T0P-r7-fUa" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="ZsX-Ot-gi5">
+                    <connections>
+                        <action selector="removeKeyboardFromView:" destination="ScR-uE-Kn4" id="JkV-zH-WAU"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2428" y="-337.78110944527737"/>
         </scene>

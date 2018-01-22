@@ -56,7 +56,9 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     private func loadSampleData() {
         
         let categoryName1 = "Allowances"
-        let category1 = Category(name: categoryName1)
+        guard let category1 = Category(name: categoryName1, amount: nil) else {
+            fatalError("Unable to instantiate category.")
+        }
         
         // Add category to array
         categories += [category1]

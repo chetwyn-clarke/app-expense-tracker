@@ -7,16 +7,17 @@
 //
 
 import UIKit
+import os.log
 
 class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     
-    // MARK: Properties
+    // MARK: - Properties
     
     @IBOutlet weak var categoryName: UITextField!
     @IBOutlet weak var startingAmount: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    
+    var category: Category?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,7 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         categoryName.delegate = self
         startingAmount.delegate = self
         
-        saveButton.isEnabled = false
+        updateSaveButtonStatus()
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,7 +33,8 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: Text field delegates
+    // MARK: - Text field delegate
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -40,24 +42,54 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == categoryName {
-            saveButton.isEnabled = true
+            saveButton.isEnabled = false
         }
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateSaveButtonStatus()
+    }
+    
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // Configure the destination view controller before presenting it.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        // Configure the destination view controller only when the save button is pressed.
+        guard let button = sender as? UIBarButtonItem, button == saveButton else {
+            os_log("The save button was not pressed, cancelling.", log: OSLog.default, type: .debug)
+            return
+        }
+        
+        let name = categoryName.text ?? ""
+        var amount = 0.0
+        if let amnt = startingAmount.text {
+            amount = Double(amnt)!
+        } else {
+            // TODO: Add debug code.
+        }
+        
+        // Set the category to be passed to destination view controller.
+        category = Category(name: name, amount: amount)
+        
     }
-    */
     
-    // MARK: Private Functions
-    func updateSaveButtonStatus() {
-        // TODO: Make is such that save button is only active after the user presses "done" on the keyboard.
+    // MARK: - Actions
+    
+    @IBAction func removeKeyboardFromView(_ sender: UITapGestureRecognizer) {
+        categoryName.resignFirstResponder()
+        startingAmount.resignFirstResponder()
+    }
+    
+    
+    // MARK: - Private Functions
+    
+    private func updateSaveButtonStatus() {
+        //Disable save button if categoryName text field is empty.
+        let text = categoryName.text ?? ""
+        saveButton.isEnabled = !text.isEmpty
     }
 
 }

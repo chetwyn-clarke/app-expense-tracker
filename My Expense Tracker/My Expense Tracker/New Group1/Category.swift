@@ -10,12 +10,22 @@ import UIKit
 
 class Category {
     
-    //MARK: Properties
+    // MARK: Properties
     
     var name: String
     var startingAmount: Double?
     
-    init(name: String) {
+    // MARK: Initialisation
+    
+    init?(name: String, amount: Double?) {
+        
+        // Name most not be empty.
+        guard !name.isEmpty else {
+            return nil
+        }
+        
+        // Initialize properties
         self.name = name
+        self.startingAmount = amount
     }
 }
