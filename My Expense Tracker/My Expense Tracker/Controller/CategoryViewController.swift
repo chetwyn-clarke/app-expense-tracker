@@ -64,13 +64,20 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         categories += [category1]
     }
     
-    //MARK: Actions
+    //MARK: - Actions
     
     @IBAction func unwindToCategoriesList(sender: UIStoryboardSegue) {
         
+        // Try to add category from sending view controller to the categoris array in the receiving view controller.
+        
+        if let sendingViewController = sender.source as? AddCategoryViewController, let category = sendingViewController.category {
+            
+            // Add a new category to the table
+            let newIndexPath = IndexPath(row: categories.count, section: 0)
+            categories.append(category)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
     }
     
-
-
 }
 

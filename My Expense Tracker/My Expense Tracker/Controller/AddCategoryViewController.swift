@@ -25,6 +25,15 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         categoryName.delegate = self
         startingAmount.delegate = self
         
+        // TODO: - Add a segue from CategoryDetailVC to this VC in order to edit the Category.
+        
+        // Set up the view if editing a category
+        if let category = category {
+            navigationItem.title = "Edit Category"
+            categoryName.text = category.name
+            startingAmount.text = String(describing: category.startingAmount) // Check this syntax
+        }
+        
         updateSaveButtonStatus()
     }
 
@@ -68,7 +77,7 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         if let amnt = startingAmount.text {
             amount = Double(amnt)!
         } else {
-            // TODO: Add debug code.
+            os_log("No starting amount added.", log: OSLog.default, type: .debug)
         }
         
         // Set the category to be passed to destination view controller.

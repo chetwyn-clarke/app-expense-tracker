@@ -126,7 +126,11 @@
                                 <segue destination="T0P-r7-fUa" kind="unwind" unwindAction="unwindToCategoriesListWithSender:" id="Aoz-hW-ONU"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="8Bb-JU-fdX"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="8Bb-JU-fdX">
+                            <connections>
+                                <segue destination="T0P-r7-fUa" kind="unwind" unwindAction="unwindToCategoriesListWithSender:" id="Fl4-Q2-yL3"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="categoryName" destination="rD1-ai-22q" id="4sa-Fi-2hd"/>
