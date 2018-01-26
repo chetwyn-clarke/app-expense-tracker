@@ -190,7 +190,7 @@
                                 <rect key="frame" x="16" y="418" width="343" height="249"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="44" id="L3d-l2-Ha9">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LedgerEntryCell" rowHeight="44" id="L3d-l2-Ha9" customClass="CategoryDetailTableViewCell" customModule="My_Expense_Tracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="L3d-l2-Ha9" id="API-g2-0Rx">
@@ -209,7 +209,7 @@
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOU-jr-0wz">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOU-jr-0wz">
                                                             <rect key="frame" x="50" y="0.0" width="213" height="12"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="12"/>
                                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -235,6 +235,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="amount" destination="w8Z-af-c7E" id="Et3-cf-24w"/>
+                                            <outlet property="date" destination="gat-eF-uDT" id="bV8-K9-74i"/>
+                                            <outlet property="itemDescription" destination="mOU-jr-0wz" id="0d4-vH-yYF"/>
                                             <segue destination="W2G-4C-WgP" kind="show" id="Pcg-31-gF9"/>
                                         </connections>
                                     </tableViewCell>
@@ -279,6 +282,7 @@
                     </view>
                     <connections>
                         <outlet property="runningTotal" destination="2tl-U6-MxJ" id="jfa-EK-tq8"/>
+                        <outlet property="tableView" destination="mId-Lj-ugv" id="629-Me-h79"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ApL-9K-oUD" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -16,6 +16,7 @@
 		734110342016109200F66F69 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734110332016109200F66F69 /* RoundedButton.swift */; };
 		734110362016161200F66F69 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734110352016161200F66F69 /* AddCategoryViewController.swift */; };
 		7381A707201B8521000C0DA6 /* LedgerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381A706201B8521000C0DA6 /* LedgerItem.swift */; };
+		7381A70B201B8DB6000C0DA6 /* CategoryDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381A70A201B8DB6000C0DA6 /* CategoryDetailTableViewCell.swift */; };
 		73BCD0522014137F00CCF8F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BCD0512014137F00CCF8F5 /* AppDelegate.swift */; };
 		73BCD0542014137F00CCF8F5 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BCD0532014137F00CCF8F5 /* CategoryViewController.swift */; };
 		73BCD0572014137F00CCF8F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73BCD0552014137F00CCF8F5 /* Main.storyboard */; };
@@ -55,6 +56,7 @@
 		734110332016109200F66F69 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		734110352016161200F66F69 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		7381A706201B8521000C0DA6 /* LedgerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerItem.swift; sourceTree = "<group>"; };
+		7381A70A201B8DB6000C0DA6 /* CategoryDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailTableViewCell.swift; sourceTree = "<group>"; };
 		73BCD04E2014137F00CCF8F5 /* My Expense Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Expense Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73BCD0512014137F00CCF8F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73BCD0532014137F00CCF8F5 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				73351034201536F400938EFC /* Add Item View */,
 				73E20449201511100085FE3B /* CategoryTableViewCell.swift */,
 				734110332016109200F66F69 /* RoundedButton.swift */,
+				7381A70A201B8DB6000C0DA6 /* CategoryDetailTableViewCell.swift */,
 			);
 			name = View;
 			path = "New Group";
@@ -332,6 +335,7 @@
 				73E20448201509240085FE3B /* CategoryDetailViewController.swift in Sources */,
 				73E2044C201511F80085FE3B /* Category.swift in Sources */,
 				73351040201541D900938EFC /* LedgerItemViewController.swift in Sources */,
+				7381A70B201B8DB6000C0DA6 /* CategoryDetailTableViewCell.swift in Sources */,
 				7335103820153A6700938EFC /* AddItemOrPriceCell.swift in Sources */,
 				7335103A20153FC900938EFC /* DatePickerCell.swift in Sources */,
 				7335103E2015402000938EFC /* SelectItemTypeCell.swift in Sources */,

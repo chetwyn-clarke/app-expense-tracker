@@ -1,0 +1,38 @@
+//
+//  CategoryDetailTableViewCell.swift
+//  My Expense Tracker
+//
+//  Created by Chetwyn on 1/26/18.
+//  Copyright © 2018 Clarke Enterprises. All rights reserved.
+//
+
+import UIKit
+
+class CategoryDetailTableViewCell: UITableViewCell {
+    
+    // MARK: - Properties
+    
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var itemDescription: UILabel!
+    @IBOutlet weak var amount: UILabel!
+    
+    // MARK: - Configuration
+    
+    func configureCell(ledgerItem: LedgerItem) {
+        date.text = ledgerItem.date
+        itemDescription.text = ledgerItem.itemDescription
+        amount.text = String(ledgerItem.amount)
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
+}
