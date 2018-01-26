@@ -9,11 +9,26 @@
 import UIKit
 
 class CategoryDetailViewController: UIViewController {
+    
+    //MARK: - Outlets
+    @IBOutlet weak var runningTotal: UILabel!
+    
+    
+    //MARK: - Properties
+    
+    /* This value is passed by CategoryViewController in 'prepare(for:sender:)
+     */
+    var category: Category?
+    
+    var ledgerEntries: [LedgerItem]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // navigationItem.rightBarButtonItem
+        
+        // Update running total and table view with ledger items.
+        updateView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,6 +51,13 @@ class CategoryDetailViewController: UIViewController {
     
     @IBAction func unWindToCategoryDetail(sender: UIStoryboardSegue) {
         
+    }
+    
+    //MARK: Functions
+    func updateView() {
+        if let category = category {
+            runningTotal.text = String(describing: category.runningTotal)
+        }
     }
 
 }
