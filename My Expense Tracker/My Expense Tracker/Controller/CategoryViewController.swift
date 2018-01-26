@@ -51,12 +51,40 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //MARK: Navigation
     
+    /*
+     In order to set the category in the destination VC, you have to get the selected category. In order to do that, you need to know the indexPath. In order to get the index path, you have to get the cell that has been selected.
+     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "toCategoryDetail" {
+            
+            guard let categoryDetailVC = segue.destination as? CategoryDetailViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let selectedCategoryCell = sender as? CategoryTableViewCell else {
+                fatalError("Unexpected sender: \(String(describing: sender))")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedCategoryCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            let selectedCategory = categories[indexPath.row]
+            categoryDetailVC.category = selectedCategory
+            
+        }
+    }
+    
     //MARK: Private Functions
     
     private func loadSampleData() {
         
         let categoryName1 = "Allowances"
-        guard let category1 = Category(name: categoryName1, amount: nil) else {
+        let categoryAmount1: Double = 500
+        guard let category1 = Category(name: categoryName1, amount: categoryAmount1) else {
             fatalError("Unable to instantiate category.")
         }
         
