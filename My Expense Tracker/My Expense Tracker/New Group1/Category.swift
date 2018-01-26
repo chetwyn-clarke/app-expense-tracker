@@ -14,8 +14,8 @@ class Category {
     
     var name: String
     var startingAmount: Double?
-    var runningTotal: Double?
-    var ledgerAmounts = [Double]()
+    var runningTotal: Int = 0
+    var ledgerAmounts = [LedgerItem]()
     
     // MARK: - Initialisation
     
@@ -31,22 +31,37 @@ class Category {
         self.startingAmount = amount
     }
     
-    // MARK: - Private functions
+    // MARK: - Functions
     
-    private func calculateRunningTotal(startingAmount: Double, ledgerEntries: [Double]) {
+    func calculateRunningTotal(ledgerEntries: [LedgerItem]) {
         
         if ledgerEntries.isEmpty {
-            runningTotal = startingAmount
+            if let startValue = startingAmount {
+                runningTotal = Int(startValue)
+            }
         }
         else {
             var sumOfLedgerEntries = 0.0
-            for entry in ledgerEntries {
+            
+            for item in ledgerEntries {
+                var amount = 0.0
+                if item.type == .expense {
+                    amount = -(item.amount)
+                } else {
+                    amount = item.amount
+                }
                 //TODO: Check syntax, and see if this can be simplified.
-                sumOfLedgerEntries = sumOfLedgerEntries + entry
+                sumOfLedgerEntries = sumOfLedgerEntries + amount
                 //sumOfLedgerEntries += entry
             }
-            runningTotal = startingAmount + sumOfLedgerEntries
+            
+            if let startValue = startingAmount {
+                runningTotal = Int(round(startValue + sumOfLedgerEntries))
+            } else {
+                runningTotal = Int(round(0 - (sumOfLedgerEntries)))
             //TODO: Run a unit test for this function.
+            }
+            
         }
         
     }

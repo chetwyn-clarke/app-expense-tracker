@@ -88,7 +88,9 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
     func updateView() {
         if let category = category {
             navigationItem.title = category.name
+            category.calculateRunningTotal(ledgerEntries: ledgerEntries)
             runningTotal.text = String(describing: category.runningTotal)
+            print(runningTotal.text)
         }
     }
     

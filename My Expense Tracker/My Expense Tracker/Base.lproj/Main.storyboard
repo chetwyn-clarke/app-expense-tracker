@@ -164,13 +164,13 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="Wd4-tG-xfi"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="40"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="30"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="300" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tl-U6-MxJ">
                                         <rect key="frame" x="35" y="0.0" width="255" height="180"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="152"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="150"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
