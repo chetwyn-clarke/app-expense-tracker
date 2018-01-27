@@ -13,7 +13,7 @@ class Category {
     // MARK: - Properties
     
     var name: String
-    var startingAmount: Double?
+    var startingAmount: Double
     var runningTotal: Int = 0
     var ledgerAmounts = [LedgerItem]()
     
@@ -28,7 +28,7 @@ class Category {
         
         // Initialize properties
         self.name = name
-        self.startingAmount = amount
+        self.startingAmount = amount ?? 0
     }
     
     // MARK: - Functions
@@ -36,9 +36,7 @@ class Category {
     func calculateRunningTotal(ledgerEntries: [LedgerItem]) {
         
         if ledgerEntries.isEmpty {
-            if let startValue = startingAmount {
-                runningTotal = Int(startValue)
-            }
+                runningTotal = Int(startingAmount)
         }
         else {
             var sumOfLedgerEntries = 0.0
@@ -55,14 +53,10 @@ class Category {
                 //sumOfLedgerEntries += entry
             }
             
-            if let startValue = startingAmount {
-                runningTotal = Int(round(startValue + sumOfLedgerEntries))
-            } else {
-                runningTotal = Int(round(0 - (sumOfLedgerEntries)))
+            runningTotal = Int(round(startingAmount + sumOfLedgerEntries))
+            
             //TODO: Run a unit test for this function.
-            }
             
         }
-        
     }
 }

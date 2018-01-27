@@ -83,6 +83,10 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         
     }
     
+    @IBAction func clearLedger(sender: UIBarButtonItem) {
+        
+    }
+    
     // MARK: - Functions
     
     func updateView() {
@@ -92,6 +96,12 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
             runningTotal.text = String(describing: category.runningTotal)
             print(runningTotal.text)
         }
+        
+        // Configure right bar button item
+        
+        let resetButton = UIBarButtonItem()
+        resetButton.title = "Reset"
+        navigationItem.rightBarButtonItem = resetButton
     }
     
     private func loadSampleData() {
@@ -118,6 +128,22 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         let ledgerItem3 = LedgerItem(type: ledgerItemType3, date: ledgerItemDate3, description: ledgerItemDescription3, amount: ledgerItemAmount3)
         
         ledgerEntries += [ledgerItem1, ledgerItem2, ledgerItem3]
+    }
+    
+    private func clearAllLedgerEntries() {
+        
+        // Clear all entries in the ledger.
+        
+        ledgerEntries.removeAll()
+        
+        // Reset running total to Category starting amount
+        
+        if let category = category {
+            category.calculateRunningTotal(ledgerEntries: ledgerEntries)  // Should return starting amount because of data model.
+        }
+        
+        // Add ledger item with starting amount.
+        let firstLedgerItem = LedgerItem(type: .income, date: "", description: "Starting Amount", amount: category?.startingAmount)
     }
     
 
