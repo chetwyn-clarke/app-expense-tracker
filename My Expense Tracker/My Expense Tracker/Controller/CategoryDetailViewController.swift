@@ -99,8 +99,8 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         
         // Configure right bar button item
         
-        let resetButton = UIBarButtonItem()
-        resetButton.title = "Reset"
+        let resetButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(clearAllLedgerEntries))
+        resetButton.tintColor = UIColor.red
         navigationItem.rightBarButtonItem = resetButton
     }
     
@@ -130,20 +130,23 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         ledgerEntries += [ledgerItem1, ledgerItem2, ledgerItem3]
     }
     
-    private func clearAllLedgerEntries() {
+    @objc private func clearAllLedgerEntries() {
         
         // Clear all entries in the ledger.
         
         ledgerEntries.removeAll()
         
-        // Reset running total to Category starting amount
+        // Reset running total to Category starting amount, and add ledger item with starting amount.
         
-        if let category = category {
-            category.calculateRunningTotal(ledgerEntries: ledgerEntries)  // Should return starting amount because of data model.
+        guard let category = category else {
+            fatalError("No category available.")
         }
+        category.calculateRunningTotal(ledgerEntries: ledgerEntries)
+        let firstLedgerItem = LedgerItem(type: .income, date: "", description: "Starting Amount", amount: category.startingAmount)
+        ledgerEntries.append(firstLedgerItem)
+        tableView.reloadData()
+        runningTotal.text = String(describing: category.runningTotal)
         
-        // Add ledger item with starting amount.
-        let firstLedgerItem = LedgerItem(type: .income, date: "", description: "Starting Amount", amount: category?.startingAmount)
     }
     
 
