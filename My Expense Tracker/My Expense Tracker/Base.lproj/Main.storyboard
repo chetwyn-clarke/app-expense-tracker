@@ -146,7 +146,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2428" y="-337.78110944527737"/>
+            <point key="canvasLocation" x="2954" y="-534"/>
         </scene>
         <!--Category Detail View Controller-->
         <scene sceneID="e78-Ab-NJb">
@@ -170,6 +170,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="300" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tl-U6-MxJ">
                                         <rect key="frame" x="35" y="0.0" width="255" height="180"/>
+                                        <gestureRecognizers/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="150"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -180,6 +181,12 @@
                                     <constraint firstAttribute="width" constant="290" id="KJC-T0-FOT"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5yl-xV-pDf">
+                                <rect key="frame" x="42" y="84" width="290" height="180"/>
+                                <connections>
+                                    <segue destination="ScR-uE-Kn4" kind="show" identifier="modifyCategory" id="w6P-pw-CzP"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lI-K2-lf2">
                                 <rect key="frame" x="16" y="394" width="343" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="14"/>
@@ -271,12 +278,16 @@
                             <constraint firstItem="5Wr-w6-Ovj" firstAttribute="trailing" secondItem="6lI-K2-lf2" secondAttribute="trailing" constant="16" id="7mA-nK-YZf"/>
                             <constraint firstItem="J2i-Ml-Zgg" firstAttribute="centerX" secondItem="umD-Zb-zXw" secondAttribute="centerX" id="CJ7-kq-cDc"/>
                             <constraint firstItem="6lI-K2-lf2" firstAttribute="leading" secondItem="5Wr-w6-Ovj" secondAttribute="leading" constant="16" id="HlE-fv-dUd"/>
+                            <constraint firstItem="5yl-xV-pDf" firstAttribute="leading" secondItem="J2i-Ml-Zgg" secondAttribute="leading" id="QCW-fr-tDb"/>
+                            <constraint firstItem="5yl-xV-pDf" firstAttribute="width" secondItem="J2i-Ml-Zgg" secondAttribute="width" id="Rhh-vA-pD5"/>
                             <constraint firstItem="5Wr-w6-Ovj" firstAttribute="trailing" secondItem="mId-Lj-ugv" secondAttribute="trailing" constant="16" id="SHd-qI-H0d"/>
                             <constraint firstItem="gRw-bi-PJi" firstAttribute="top" secondItem="J2i-Ml-Zgg" secondAttribute="bottom" constant="30" id="UNP-Lh-mKu"/>
                             <constraint firstItem="mId-Lj-ugv" firstAttribute="leading" secondItem="5Wr-w6-Ovj" secondAttribute="leading" constant="16" id="UzF-Az-SWr"/>
                             <constraint firstItem="J2i-Ml-Zgg" firstAttribute="top" secondItem="5Wr-w6-Ovj" secondAttribute="top" constant="20" id="ZIo-Fl-BQe"/>
                             <constraint firstItem="6lI-K2-lf2" firstAttribute="top" secondItem="gRw-bi-PJi" secondAttribute="bottom" constant="50" id="i8k-5c-Jtu"/>
                             <constraint firstItem="mId-Lj-ugv" firstAttribute="top" secondItem="6lI-K2-lf2" secondAttribute="bottom" constant="5" id="k6s-k4-y4t"/>
+                            <constraint firstItem="5yl-xV-pDf" firstAttribute="top" secondItem="J2i-Ml-Zgg" secondAttribute="top" id="ndp-4u-e0X"/>
+                            <constraint firstItem="5yl-xV-pDf" firstAttribute="height" secondItem="J2i-Ml-Zgg" secondAttribute="height" id="tom-rz-6fx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5Wr-w6-Ovj"/>
                     </view>
@@ -473,7 +484,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Uj-3x-Grg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="PNr-9V-fvB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3421.5999999999999" y="393.55322338830587"/>
+            <point key="canvasLocation" x="3577" y="394"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Wr3-fT-7MZ">
@@ -527,10 +538,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LkA-tt-SoQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1480" y="-336.43178410794604"/>
+            <point key="canvasLocation" x="1478" y="-533"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Pcg-31-gF9"/>
+        <segue reference="lPZ-Xp-B5I"/>
+        <segue reference="w6P-pw-CzP"/>
     </inferredMetricsTieBreakers>
 </document>

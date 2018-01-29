@@ -67,17 +67,33 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
     }
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        switch (segue.identifier ?? "") {
+            
+        case "modifyCategory":
+            
+            guard let destinationViewController = segue.destination as? AddCategoryViewController else {
+                fatalError("Unexpected destination: \(String(describing: segue.destination))")
+            }
+            guard let presentCategory = self.category else {
+                fatalError("No category selected.")
+            }
+            destinationViewController.category = presentCategory
+            
+            
+            
+            // Send category to next category
+        default:
+            fatalError("Unexpected segue identifier: \(String(describing: segue.identifier))")
+        }
     }
-    */
     
-    //MARK: Actions
+    //MARK: - Actions
     
     @IBAction func unWindToCategoryDetail(sender: UIStoryboardSegue) {
         
@@ -86,6 +102,7 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
     @IBAction func clearLedger(sender: UIBarButtonItem) {
         
     }
+    
     
     // MARK: - Functions
     
@@ -128,6 +145,7 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         let ledgerItem3 = LedgerItem(type: ledgerItemType3, date: ledgerItemDate3, description: ledgerItemDescription3, amount: ledgerItemAmount3)
         
         ledgerEntries += [ledgerItem1, ledgerItem2, ledgerItem3]
+        
     }
     
     @objc private func clearAllLedgerEntries() {
