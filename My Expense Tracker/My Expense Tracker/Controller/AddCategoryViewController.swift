@@ -29,7 +29,7 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         if let category = category {
             navigationItem.title = "Edit Category"
             categoryName.text = category.name
-            startingAmount.text = String(describing: category.startingAmount) 
+            startingAmount.text = String(describing: category.startingAmount)
         }
         
         updateSaveButtonStatus()
@@ -70,6 +70,8 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
+        // Configure the category to be passed to the destination view controller i.e. to the CategoryViewController.
+        
         let name = categoryName.text ?? ""
         var amount = 0.0
         if let amnt = startingAmount.text {
@@ -78,10 +80,43 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
             os_log("No starting amount added.", log: OSLog.default, type: .debug)
         }
         
-        // Set the category to be passed to destination view controller.
         category = Category(name: name, amount: amount)
         
+        // Then pass the category to the view controller and add it to the table.
+        
+        guard let destination = segue.destination as? CategoryViewController else {
+            fatalError("Unable to find CategoryViewController.")
+        }
+        
+        guard let category = category else {
+            fatalError("Unable to get category from AddCategoryVC")
+        }
+        
+        
+        let newIndexPath = IndexPath(row: destination.categories.count, section: 0)
+        destination.categories.append(category)
+        destination.tableView.insertRows(at: [newIndexPath], with: .automatic)
+        
     }
+    
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        
+        // Action to execute depends on how this view controller was presented. If presented when adding a category, it was presented modally and needs to be dismissed with meal being saved to Categories array; if presented when editing a category, it was pushed, and needs to be popped off the navigation stack.
+        
+        let presentingInAddCategoryMode = presentingViewController is UINavigationController
+        
+        if presentingInAddCategoryMode {
+            dismiss(animated: true, completion: nil)
+        }
+        else if let owningNavigationController = self.navigationController {
+            owningNavigationController.popViewController(animated: true)
+        }
+        else {
+            fatalError("The Add / Edit Category view controller is not in a navigation controller. ")
+        }
+        
+    }
+    
     
     // MARK: - Actions
     

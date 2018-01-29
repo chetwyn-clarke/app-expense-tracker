@@ -27,6 +27,10 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         // Load Data
         loadSampleData()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // tableView.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

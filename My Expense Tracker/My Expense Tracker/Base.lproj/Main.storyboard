@@ -128,7 +128,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="8Bb-JU-fdX">
                             <connections>
-                                <segue destination="T0P-r7-fUa" kind="unwind" unwindAction="unwindToCategoriesListWithSender:" id="Fl4-Q2-yL3"/>
+                                <action selector="save:" destination="ScR-uE-Kn4" id="KlJ-E7-gA4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
