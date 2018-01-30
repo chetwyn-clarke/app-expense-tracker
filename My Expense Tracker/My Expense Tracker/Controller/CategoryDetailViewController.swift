@@ -99,10 +99,6 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         
     }
     
-    @IBAction func clearLedger(sender: UIBarButtonItem) {
-        
-    }
-    
     
     // MARK: - Functions
     

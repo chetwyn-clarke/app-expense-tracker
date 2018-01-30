@@ -16,6 +16,7 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var categoryName: UITextField!
     @IBOutlet weak var startingAmount: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     var category: Category?
     
@@ -65,6 +66,7 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         super.prepare(for: segue, sender: sender)
         
         // Configure the destination view controller only when the save button is pressed.
+        
         guard let button = sender as? UIBarButtonItem, button == saveButton else {
             os_log("The save button was not pressed, cancelling.", log: OSLog.default, type: .debug)
             return
@@ -101,21 +103,16 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
-        // Action to execute depends on how this view controller was presented. If presented when adding a category, it was presented modally and needs to be dismissed with meal being saved to Categories array; if presented when editing a category, it was pushed, and needs to be popped off the navigation stack.
-        
-        let presentingInAddCategoryMode = presentingViewController is UINavigationController
-        
-        if presentingInAddCategoryMode {
-            dismiss(animated: true, completion: nil)
-        }
-        else if let owningNavigationController = self.navigationController {
-            owningNavigationController.popViewController(animated: true)
-        }
-        else {
-            fatalError("The Add / Edit Category view controller is not in a navigation controller. ")
-        }
+        determinePresentingViewControllerAndDismiss()
         
     }
+    
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        
+        determinePresentingViewControllerAndDismiss()
+        
+    }
+    
     
     
     // MARK: - Actions
@@ -132,6 +129,24 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         //Disable save button if categoryName text field is empty.
         let text = categoryName.text ?? ""
         saveButton.isEnabled = !text.isEmpty
+    }
+    
+    private func determinePresentingViewControllerAndDismiss() {
+        
+        // Action to execute depends on how this view controller was presented. If presented when adding a category, it was presented modally and needs to be dismissed with meal being saved to Categories array; if presented when editing a category, it was pushed, and needs to be popped off the navigation stack.
+        
+        let presentingInAddCategoryMode = presentingViewController is UINavigationController
+        
+        if presentingInAddCategoryMode {
+            dismiss(animated: true, completion: nil)
+        }
+        else if let owningNavigationController = self.navigationController {
+            owningNavigationController.popViewController(animated: true)
+        }
+        else {
+            fatalError("The Add / Edit Category view controller is not in a navigation controller. ")
+        }
+        
     }
 
 }
