@@ -15,16 +15,22 @@ class LedgerItemViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var tableView: UITableView!
     
+    var sections = [[LedgerItemSceneCell]]()
+    
+    var ledgerItem: LedgerItem?
+    
     // These store the cells in the sections
-    var section0 = ["typeOfItem"]
-    var section1 = ["date"]
-    var section2 = ["item","price","notes"]
+//    var section0 = ["typeOfItem"]
+//    var section1 = ["date"]
+//    var section2 = ["item","price","notes"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.dataSource = self
         tableView.delegate = self
+        
+        initSections()
         
     }
 
@@ -36,26 +42,48 @@ class LedgerItemViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: Table View Data Source
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        switch section {
-        case 0:
-            return section0.count
-        case 1:
-            return section1.count
-        case 2:
-            return section2.count
-        default:
-            fatalError("Section not found")
-        }
+        return sections[section].count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        return UITableViewCell()        
+        let ledgerItemCell = sections[indexPath.section][indexPath.row]
+        
+        switch sections[indexPath.section][indexPath.row].section {
+            
+        case .type:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SELECT_TYPE, for: indexPath) as? SelectItemTypeCell else {
+                fatalError("The dequeued cell is not an istance of SelectItemTypeCell.")
+            }
+            return cell
+            
+        case .details:
+            
+            // Use ledgerItemCell
+            
+            if ledgerItemCell.name == "Date" {
+                return UITableViewCell()
+            } else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: PRICE_OR_DESCRIPTION, for: indexPath) as? AddItemOrPriceCell else {
+                    fatalError("The dequeued cell is not an istance of AddItemOrPriceCell.")
+                }
+                cell.configureCells(name: ledgerItemCell.name)
+                return cell
+            }
+            
+        case .notes:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: NOTES_CELL, for: indexPath) as? AddNotesCell else {
+                fatalError("The dequeued cell is not an istance of AddNotesCell.")
+            }
+            return cell
+        }
+        
     }
     
 
@@ -68,5 +96,38 @@ class LedgerItemViewController: UIViewController, UITableViewDelegate, UITableVi
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func initSections() {
+        
+        // Aim: Take all the LedgerItemSceneCells and sort them into sections based on their type. Then use those sections to build the table.
+        
+        let cells = DataService.instance.getLedgerItemSceneCells()
+        
+        var section0 = [LedgerItemSceneCell]()
+        var section1 = [LedgerItemSceneCell]()
+        var section2 = [LedgerItemSceneCell]()
+        
+        for cell in cells {
+            switch (cell.section) {
+            case .type:
+                section0.append(cell)
+            case .details:
+                section1.append(cell)
+            case .notes:
+                section2.append(cell)
+            }
+        }
+        
+        var allSections = [section0, section1, section2]
+        
+        sections = allSections
+        
+        
+        
+        
+        // Create an index path
+        
+        
+    }
 
 }

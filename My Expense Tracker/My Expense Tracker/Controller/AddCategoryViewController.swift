@@ -74,15 +74,15 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         
         // Configure the category to be passed to the destination view controller i.e. to the CategoryViewController.
         
-        let name = categoryName.text ?? ""
-        var amount = 0.0
-        if let amnt = startingAmount.text {
-            amount = Double(amnt)!
-        } else {
-            os_log("No starting amount added.", log: OSLog.default, type: .debug)
-        }
-        
-        category = Category(name: name, amount: amount)
+//        let name = categoryName.text ?? ""
+//        var amount = 0.0
+//        if let amnt = startingAmount.text {
+//            amount = Double(amnt)!
+//        } else {
+//            os_log("No starting amount added.", log: OSLog.default, type: .debug)
+//        }
+//
+//        category = Category(name: name, amount: amount)
         
         // Then pass the category to the view controller and add it to the table.
         
@@ -103,6 +103,24 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
+        let name = categoryName.text ?? ""
+        var amount = 0.0
+        if let amnt = startingAmount.text {
+            if !amnt.isEmpty {
+                amount = Double(amnt)!
+            }
+        } else {
+            os_log("No starting amount added.", log: OSLog.default, type: .debug)
+        }
+        
+        category = Category(name: name, amount: amount)
+        
+        if let category = category {
+            DataService.instance.saveCategoryToCategories(category: category)
+        }
+        
+        print("Category Count: \(DataService.instance.getCategories().count)")
+        
         determinePresentingViewControllerAndDismiss()
         
     }
@@ -112,8 +130,6 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         determinePresentingViewControllerAndDismiss()
         
     }
-    
-    
     
     // MARK: - Actions
     

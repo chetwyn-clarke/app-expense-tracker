@@ -16,11 +16,11 @@ class AddItemOrPriceCell: UITableViewCell {
     
     //MARK: Configure Cells
     
-    func configureCells(index: Int) {
-        switch index {
-        case 0:
+    func configureCells(name: String) {
+        switch name {
+        case "Description":
             valueTextField.placeholder = "Item Description"
-        case 1:
+        case "Price":
             valueTextField.placeholder = "Price"
             valueTextField.keyboardType = .decimalPad
         default:

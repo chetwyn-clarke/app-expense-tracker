@@ -25,11 +25,17 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.delegate = self
         
         // Load Data
+        
+        
         loadSampleData()
+        
+        //initCategories()
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        // tableView.reloadData()
+        //tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,6 +55,7 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
             fatalError("The dequeued cell is not an instance of CategoryTableViewCell")
         }
         let category = categories[indexPath.row]
+        //let category = DataService.instance.getCategories()[indexPath.row]
         cell.configureCell(category: category)
         return cell
     }
@@ -94,6 +101,10 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         
         // Add category to array
         categories += [category1]
+    }
+    
+    func initCategories() {
+        categories = DataService.instance.getCategories()
     }
     
     //MARK: - Actions

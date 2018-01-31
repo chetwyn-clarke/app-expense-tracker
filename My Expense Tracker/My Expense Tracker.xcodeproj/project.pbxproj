@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7312455B20213F6800E3A0D5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7312455A20213F6800E3A0D5 /* Constants.swift */; };
 		733510362015372100938EFC /* AddNotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733510352015372100938EFC /* AddNotesCell.swift */; };
 		7335103820153A6700938EFC /* AddItemOrPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7335103720153A6700938EFC /* AddItemOrPriceCell.swift */; };
 		7335103A20153FC900938EFC /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7335103920153FC900938EFC /* DatePickerCell.swift */; };
@@ -15,6 +16,7 @@
 		73351040201541D900938EFC /* LedgerItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7335103F201541D900938EFC /* LedgerItemViewController.swift */; };
 		734110342016109200F66F69 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734110332016109200F66F69 /* RoundedButton.swift */; };
 		734110362016161200F66F69 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734110352016161200F66F69 /* AddCategoryViewController.swift */; };
+		736D45DB2020D2FD007F4C96 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D45DA2020D2FD007F4C96 /* DataService.swift */; };
 		7381A707201B8521000C0DA6 /* LedgerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381A706201B8521000C0DA6 /* LedgerItem.swift */; };
 		7381A70B201B8DB6000C0DA6 /* CategoryDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381A70A201B8DB6000C0DA6 /* CategoryDetailTableViewCell.swift */; };
 		73BCD0522014137F00CCF8F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BCD0512014137F00CCF8F5 /* AppDelegate.swift */; };
@@ -27,6 +29,7 @@
 		73E20448201509240085FE3B /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E20447201509240085FE3B /* CategoryDetailViewController.swift */; };
 		73E2044A201511100085FE3B /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E20449201511100085FE3B /* CategoryTableViewCell.swift */; };
 		73E2044C201511F80085FE3B /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2044B201511F80085FE3B /* Category.swift */; };
+		73F815AC20211ED600590E7B /* LedgerItemSceneConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F815AB20211ED600590E7B /* LedgerItemSceneConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7312455A20213F6800E3A0D5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		733510352015372100938EFC /* AddNotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesCell.swift; sourceTree = "<group>"; };
 		7335103720153A6700938EFC /* AddItemOrPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemOrPriceCell.swift; sourceTree = "<group>"; };
 		7335103920153FC900938EFC /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
@@ -55,6 +59,7 @@
 		7335103F201541D900938EFC /* LedgerItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerItemViewController.swift; sourceTree = "<group>"; };
 		734110332016109200F66F69 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		734110352016161200F66F69 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
+		736D45DA2020D2FD007F4C96 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		7381A706201B8521000C0DA6 /* LedgerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerItem.swift; sourceTree = "<group>"; };
 		7381A70A201B8DB6000C0DA6 /* CategoryDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailTableViewCell.swift; sourceTree = "<group>"; };
 		73BCD04E2014137F00CCF8F5 /* My Expense Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Expense Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +78,7 @@
 		73E20447201509240085FE3B /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
 		73E20449201511100085FE3B /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		73E2044B201511F80085FE3B /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		73F815AB20211ED600590E7B /* LedgerItemSceneConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerItemSceneConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +118,15 @@
 			path = "Add Item View";
 			sourceTree = "<group>";
 		};
+		736D45D92020D286007F4C96 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				736D45DA2020D2FD007F4C96 /* DataService.swift */,
+				7312455A20213F6800E3A0D5 /* Constants.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		73AE7ECD2015030500F3B9D8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +155,7 @@
 			children = (
 				73E2044B201511F80085FE3B /* Category.swift */,
 				7381A706201B8521000C0DA6 /* LedgerItem.swift */,
+				73F815AB20211ED600590E7B /* LedgerItemSceneConfiguration.swift */,
 			);
 			name = Model;
 			path = "New Group1";
@@ -168,6 +184,7 @@
 		73BCD0502014137F00CCF8F5 /* My Expense Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				736D45D92020D286007F4C96 /* Services */,
 				73AE7ECF2015032000F3B9D8 /* Model */,
 				73AE7ECE2015030D00F3B9D8 /* View */,
 				73AE7ECD2015030500F3B9D8 /* Controller */,
@@ -339,6 +356,7 @@
 				7335103820153A6700938EFC /* AddItemOrPriceCell.swift in Sources */,
 				7335103A20153FC900938EFC /* DatePickerCell.swift in Sources */,
 				7335103E2015402000938EFC /* SelectItemTypeCell.swift in Sources */,
+				736D45DB2020D2FD007F4C96 /* DataService.swift in Sources */,
 				734110362016161200F66F69 /* AddCategoryViewController.swift in Sources */,
 				7335103C20153FF800938EFC /* AddDateCell.swift in Sources */,
 				734110342016109200F66F69 /* RoundedButton.swift in Sources */,
@@ -347,6 +365,8 @@
 				7381A707201B8521000C0DA6 /* LedgerItem.swift in Sources */,
 				73BCD0522014137F00CCF8F5 /* AppDelegate.swift in Sources */,
 				73E2044A201511100085FE3B /* CategoryTableViewCell.swift in Sources */,
+				73F815AC20211ED600590E7B /* LedgerItemSceneConfiguration.swift in Sources */,
+				7312455B20213F6800E3A0D5 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

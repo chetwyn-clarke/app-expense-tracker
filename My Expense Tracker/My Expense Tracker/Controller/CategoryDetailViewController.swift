@@ -85,6 +85,13 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
             }
             destinationViewController.category = presentCategory
             
+        case "toAddLedgerItem":
+            
+            guard let destinationViewController = segue.destination as? LedgerItemViewController else {
+                fatalError("Unexpected destination: \(String(describing: segue.destination))")
+            }
+            
+            destinationViewController.initSections()
             
             
             // Send category to next category
@@ -98,6 +105,11 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
     @IBAction func unWindToCategoryDetail(sender: UIStoryboardSegue) {
         
     }
+    
+    @IBAction func addLedgerItem(_ sender: Any) {
+        performSegue(withIdentifier: "toAddLedgerItem", sender: nil)
+    }
+    
     
     
     // MARK: - Functions
