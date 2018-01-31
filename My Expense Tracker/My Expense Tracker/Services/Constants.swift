@@ -13,3 +13,4 @@ import Foundation
 let NOTES_CELL = "NotesCell"
 let SELECT_TYPE = "SelectItemType"
 let PRICE_OR_DESCRIPTION = "AddItemOrPriceCell"
+let DATE = "AddDateCell"

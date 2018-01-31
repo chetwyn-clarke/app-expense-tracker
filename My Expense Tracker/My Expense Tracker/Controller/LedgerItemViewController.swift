@@ -68,7 +68,10 @@ class LedgerItemViewController: UIViewController, UITableViewDelegate, UITableVi
             // Use ledgerItemCell
             
             if ledgerItemCell.name == "Date" {
-                return UITableViewCell()
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DATE, for: indexPath) as? AddDateCell else {
+                    fatalError("The dequeued cell is not an instance of AddDateCell")
+                }
+                return cell
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: PRICE_OR_DESCRIPTION, for: indexPath) as? AddItemOrPriceCell else {
                     fatalError("The dequeued cell is not an istance of AddItemOrPriceCell.")
@@ -84,6 +87,17 @@ class LedgerItemViewController: UIViewController, UITableViewDelegate, UITableVi
             return cell
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        let cellName = sections[indexPath.section][indexPath.row].name
+        
+        if cellName == "Notes" {
+            return 150
+        } else {
+            return 50
+        }
     }
     
 
