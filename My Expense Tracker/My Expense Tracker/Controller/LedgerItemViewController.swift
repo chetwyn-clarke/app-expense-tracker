@@ -15,6 +15,8 @@ class LedgerItemViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var tableView: UITableView!
     
+    var category: Category?
+    
     var sections = [[LedgerItemSceneCell]]()
     
     var ledgerItem: LedgerItem?
@@ -100,6 +102,8 @@ class LedgerItemViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    
+    
 
     /*
     // MARK: - Navigation
@@ -132,7 +136,7 @@ class LedgerItemViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
         
-        var allSections = [section0, section1, section2]
+        let allSections = [section0, section1, section2]
         
         sections = allSections
         
@@ -143,5 +147,17 @@ class LedgerItemViewController: UIViewController, UITableViewDelegate, UITableVi
         
         
     }
+    
+    // MARK: - Actions
+    
+    // When save button pressed need to do one of two things. If editing a ledger item, then need to save that ledger item; if creating a new one, then need to save that to the array, enter it into a new index path, and then reload the tableview.
+    
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        
+        
+        
+        
+    }
+    
 
 }

@@ -59,4 +59,8 @@ class Category {
             
         }
     }
+    
+    func addLedgerItem(item: LedgerItem) {
+        self.ledgerAmounts.append(item)
+    }
 }

@@ -29,7 +29,12 @@ class LedgerItem {
         
         self.type = type
         self.itemDescription = description
-        self.amount = amount
+        
+        if type == .expense {
+            self.amount = -amount
+        } else {
+            self.amount = amount
+        }
     }
     
 }
