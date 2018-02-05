@@ -134,6 +134,7 @@ class LedgerItemTableViewController: UITableViewController {
         
         
         // Get type of item
+        
         var type: LedgerItemType
         if segmentedControl.selectedSegmentIndex == 0 {
             type = .income
@@ -159,6 +160,8 @@ class LedgerItemTableViewController: UITableViewController {
         let item = LedgerItem(type: type, date: date, description: description, amount: amount)
         
         category?.addLedgerItem(item: item)
+        
+        // Save category disk, so that it is updated when this VC is dismissed.
         
         // If presented modally, then dismiss the view. If presented with navigation controller, then pop off the stack.
         

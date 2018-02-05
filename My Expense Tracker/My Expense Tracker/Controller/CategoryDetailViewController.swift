@@ -87,16 +87,23 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
             
         case "toAddItem":
             
-            // change to navigation controller top object as destination
-            
-            guard let destinationViewController = segue.destination as? LedgerItemTableViewController else {
+            guard let destinationViewController = segue.destination as? UINavigationController else {
                 fatalError("Unexpected destination: \(String(describing: segue.destination))")
             }
             
+            guard let selectedCategory = self.category else {
+                fatalError("No category selected")
+            }
+            
+            guard let receivingViewController = destinationViewController.topViewController as? LedgerItemTableViewController else {
+                fatalError("Unexpected destination: \(String(describing: segue.destination))")
+            }
+            
+            receivingViewController.category = selectedCategory
+            receivingViewController.navigationItem.title = "Add Item"
+            
             //destinationViewController.initSections()
             
-            
-            // Send category to next category
         default:
             fatalError("Unexpected segue identifier: \(String(describing: segue.identifier))")
         }
