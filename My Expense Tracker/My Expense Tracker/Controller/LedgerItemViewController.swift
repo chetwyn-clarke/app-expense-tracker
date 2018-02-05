@@ -155,6 +155,9 @@ class LedgerItemViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func save(_ sender: UIBarButtonItem) {
         
         
+        //let item = LedgerItem(type: <#T##LedgerItemType#>, date: <#T##String?#>, description: <#T##String#>, amount: <#T##Double#>)
+        
+        
         
         
     }
