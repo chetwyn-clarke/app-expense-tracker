@@ -9,7 +9,19 @@
 import UIKit
 
 class LedgerItemTableViewController: UITableViewController {
-
+    
+    // MARK: - Properties
+    
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var itemDescription: UITextField!
+    @IBOutlet weak var price: UITextField!
+    @IBOutlet weak var notes: UITextField!
+    
+    var category: Category?
+    var ledgerItem: LedgerItem?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,9 +51,9 @@ class LedgerItemTableViewController: UITableViewController {
         case 0:
             return 1
         case 1:
-            return 4
+            return 2
         case 2:
-            return 1
+            return 3
         default:
             return 0
         }
@@ -108,5 +120,64 @@ class LedgerItemTableViewController: UITableViewController {
     
     func configureView() {
     }
+    
+    // MARK: - Actions
+    
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+    }
+    
+    
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        
+        
+        var date: String = ""
+        
+        
+        // Get type of item
+        var type: LedgerItemType
+        if segmentedControl.selectedSegmentIndex == 0 {
+            type = .income
+        } else {
+            type = .expense
+        }
+        
+        // Get date
+        
+        // Get item description
+        
+        let description = self.itemDescription.text ?? ""
+        
+        // Convert price text field to a Double
+        var amount: Double
+        let price = self.price.text ?? ""
+        if price.isEmpty {
+            amount = 0
+        } else {
+            amount = Double(price)!
+        }
+        
+        let item = LedgerItem(type: type, date: date, description: description, amount: amount)
+        
+        category?.addLedgerItem(item: item)
+        
+        // If presented modally, then dismiss the view. If presented with navigation controller, then pop off the stack.
+        
+        let isAddingAnItem = presentingViewController is UINavigationController
+        
+        if isAddingAnItem {
+            dismiss(animated: true, completion: nil)
+        }
+        //else if let owningNavigationController ... 
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="d9w-bZ-ecp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aLf-n6-F2y">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -267,7 +267,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="addLedgerItem:" destination="5CQ-cQ-6Pz" eventType="touchUpInside" id="YfR-uZ-sNz"/>
+                                    <segue destination="y66-XV-2PT" kind="presentation" identifier="toAddItem" id="0Gy-Ri-X7K"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -294,7 +294,6 @@
                     <connections>
                         <outlet property="runningTotal" destination="2tl-U6-MxJ" id="jfa-EK-tq8"/>
                         <outlet property="tableView" destination="mId-Lj-ugv" id="629-Me-h79"/>
-                        <segue destination="W2G-4C-WgP" kind="show" identifier="toAddLedgerItem" id="2T9-8y-7f2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ApL-9K-oUD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -504,9 +503,9 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Uj-3x-Grg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="PNr-9V-fvB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3577" y="408"/>
+            <point key="canvasLocation" x="3918" y="1145"/>
         </scene>
-        <!--Ledger Item Table View Controller-->
+        <!--Item-->
         <scene sceneID="PAr-1T-3kD">
             <objects>
                 <tableViewController id="d9w-bZ-ecp" customClass="LedgerItemTableViewController" customModule="My_Expense_Tracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -517,21 +516,21 @@
                         <sections>
                             <tableViewSection id="wgX-7f-qcK">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Cp3-Jz-7GD">
-                                        <rect key="frame" x="0.0" y="35" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="Cp3-Jz-7GD">
+                                        <rect key="frame" x="0.0" y="35" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cp3-Jz-7GD" id="uPs-BM-VVn">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZw-wc-g3V">
-                                                    <rect key="frame" x="16" y="11.5" width="38.5" height="22"/>
+                                                    <rect key="frame" x="16" y="13" width="38.5" height="22"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Lcd-E3-Uba">
-                                                    <rect key="frame" x="226" y="8" width="133" height="29"/>
+                                                    <rect key="frame" x="226" y="11" width="133" height="29"/>
                                                     <segments>
                                                         <segment title="Income"/>
                                                         <segment title="Expense"/>
@@ -550,21 +549,21 @@
                             </tableViewSection>
                             <tableViewSection id="k5y-6n-2Mm">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="fRS-o5-Lrq">
-                                        <rect key="frame" x="0.0" y="115" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="fRS-o5-Lrq">
+                                        <rect key="frame" x="0.0" y="121" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fRS-o5-Lrq" id="d5H-nX-Afz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsV-cp-zW3">
-                                                    <rect key="frame" x="16" y="10" width="39" height="22"/>
+                                                    <rect key="frame" x="16" y="13" width="39" height="22"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date String" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CmC-Lk-Wd4">
-                                                    <rect key="frame" x="143" y="11.5" width="200" height="22"/>
+                                                    <rect key="frame" x="159" y="13" width="200" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="cp3-os-UB5"/>
                                                     </constraints>
@@ -574,87 +573,102 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="CmC-Lk-Wd4" secondAttribute="trailing" constant="16" id="AxJ-mY-qAI"/>
                                                 <constraint firstItem="CmC-Lk-Wd4" firstAttribute="centerY" secondItem="d5H-nX-Afz" secondAttribute="centerY" id="CP6-vT-Ddf"/>
                                                 <constraint firstItem="gsV-cp-zW3" firstAttribute="centerY" secondItem="d5H-nX-Afz" secondAttribute="centerY" id="KeI-kW-PHy"/>
+                                                <constraint firstAttribute="trailing" secondItem="CmC-Lk-Wd4" secondAttribute="trailing" constant="16" id="eyC-ep-zOY"/>
                                                 <constraint firstItem="gsV-cp-zW3" firstAttribute="leading" secondItem="d5H-nX-Afz" secondAttribute="leading" constant="16" id="wdy-nl-OK6"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="t9q-9n-czu">
-                                        <rect key="frame" x="0.0" y="159" width="375" height="100"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="140" id="t9q-9n-czu">
+                                        <rect key="frame" x="0.0" y="171" width="375" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t9q-9n-czu" id="zAF-LV-jbK">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="139.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="va7-Bz-7VF">
-                                                    <rect key="frame" x="0.0" y="-59" width="375" height="216"/>
+                                                    <rect key="frame" x="16" y="-39" width="343" height="217"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="539551338.02685499">
                                                         <!--2018-02-05 19:22:18 +0000-->
                                                     </date>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="va7-Bz-7VF" secondAttribute="trailing" id="2dN-uE-vJx"/>
-                                                <constraint firstItem="va7-Bz-7VF" firstAttribute="leading" secondItem="zAF-LV-jbK" secondAttribute="leading" id="4lI-1a-5ta"/>
+                                                <constraint firstAttribute="trailing" secondItem="va7-Bz-7VF" secondAttribute="trailing" constant="16" id="AQO-15-kCB"/>
+                                                <constraint firstItem="va7-Bz-7VF" firstAttribute="leading" secondItem="zAF-LV-jbK" secondAttribute="leading" constant="16" id="gXr-mX-6UT"/>
                                                 <constraint firstItem="va7-Bz-7VF" firstAttribute="centerY" secondItem="zAF-LV-jbK" secondAttribute="centerY" id="zCV-hI-Wvi"/>
                                             </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="nvl-bQ-KPL">
-                                        <rect key="frame" x="0.0" y="259" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nvl-bQ-KPL" id="RGK-xo-T07">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6BJ-Bt-9Z4">
-                                                    <rect key="frame" x="16" y="6" width="343" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rGW-rE-UvM">
-                                        <rect key="frame" x="0.0" y="303" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rGW-rE-UvM" id="mag-rx-9Ha">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4bY-oR-p1L">
-                                                    <rect key="frame" x="16" y="6" width="343" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="kFx-gx-C8F">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="92K-dh-eQJ">
-                                        <rect key="frame" x="0.0" y="383" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="nvl-bQ-KPL">
+                                        <rect key="frame" x="0.0" y="347" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="92K-dh-eQJ" id="Fog-Bu-DYZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nvl-bQ-KPL" id="RGK-xo-T07">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Notes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TP7-AO-gBE">
-                                                    <rect key="frame" x="16" y="6" width="343" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6BJ-Bt-9Z4">
+                                                    <rect key="frame" x="16" y="9" width="343" height="30"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="6BJ-Bt-9Z4" firstAttribute="leading" secondItem="RGK-xo-T07" secondAttribute="leading" constant="16" id="8na-jA-AXf"/>
+                                                <constraint firstAttribute="trailing" secondItem="6BJ-Bt-9Z4" secondAttribute="trailing" constant="16" id="dGo-W5-1fv"/>
+                                                <constraint firstItem="6BJ-Bt-9Z4" firstAttribute="centerY" secondItem="RGK-xo-T07" secondAttribute="centerY" id="ntO-Z5-Mk7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="rGW-rE-UvM">
+                                        <rect key="frame" x="0.0" y="397" width="375" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rGW-rE-UvM" id="mag-rx-9Ha">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4bY-oR-p1L">
+                                                    <rect key="frame" x="16" y="9" width="343" height="30"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="4bY-oR-p1L" secondAttribute="trailing" constant="16" id="D6A-Ul-Qii"/>
+                                                <constraint firstItem="4bY-oR-p1L" firstAttribute="leading" secondItem="mag-rx-9Ha" secondAttribute="leading" constant="16" id="SCV-bN-6FF"/>
+                                                <constraint firstItem="4bY-oR-p1L" firstAttribute="centerY" secondItem="mag-rx-9Ha" secondAttribute="centerY" id="y7G-u9-Tm4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="92K-dh-eQJ">
+                                        <rect key="frame" x="0.0" y="447" width="375" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="92K-dh-eQJ" id="Fog-Bu-DYZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Notes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TP7-AO-gBE">
+                                                    <rect key="frame" x="16" y="15" width="343" height="70"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="70" id="Log-dQ-2N4"/>
+                                                    </constraints>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="TP7-AO-gBE" firstAttribute="centerY" secondItem="Fog-Bu-DYZ" secondAttribute="centerY" id="fe3-Ux-WXk"/>
+                                                <constraint firstAttribute="trailing" secondItem="TP7-AO-gBE" secondAttribute="trailing" constant="16" id="pUd-oD-Yp3"/>
+                                                <constraint firstItem="TP7-AO-gBE" firstAttribute="leading" secondItem="Fog-Bu-DYZ" secondAttribute="leading" constant="16" id="whs-cL-Jgp"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -665,10 +679,30 @@
                             <outlet property="delegate" destination="d9w-bZ-ecp" id="BHo-xT-0e1"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Item" id="Ezb-mX-Can">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="dKq-t2-WLI">
+                            <connections>
+                                <action selector="cancel:" destination="d9w-bZ-ecp" id="0tZ-YF-eiD"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="okU-gH-vAG">
+                            <connections>
+                                <action selector="save:" destination="d9w-bZ-ecp" id="vsg-qc-cJh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="date" destination="CmC-Lk-Wd4" id="zt3-gq-Nat"/>
+                        <outlet property="datePicker" destination="va7-Bz-7VF" id="8Is-Y9-CTS"/>
+                        <outlet property="itemDescription" destination="6BJ-Bt-9Z4" id="BFj-Rw-r4W"/>
+                        <outlet property="notes" destination="TP7-AO-gBE" id="uHW-dF-D7K"/>
+                        <outlet property="price" destination="4bY-oR-p1L" id="VE4-jw-oGo"/>
+                        <outlet property="segmentedControl" destination="Lcd-E3-Uba" id="DFK-YE-axu"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eaV-Yj-Y9g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4919.1999999999998" y="418.74062968515744"/>
+            <point key="canvasLocation" x="3916" y="425.93703148425789"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Wr3-fT-7MZ">
@@ -704,7 +738,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QIh-vy-VQJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2662" y="944"/>
+            <point key="canvasLocation" x="2670" y="1145"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Dhm-3B-R6I">
@@ -724,9 +758,26 @@
             </objects>
             <point key="canvasLocation" x="1630" y="-535"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="9WG-ds-cGj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="y66-XV-2PT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5YZ-pG-Gpf">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="d9w-bZ-ecp" kind="relationship" relationship="rootViewController" id="R79-Ob-54f"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NmX-OX-UkY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3001" y="426"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lPZ-Xp-B5I"/>
-        <segue reference="VGz-oX-6fu"/>
+        <segue reference="w6P-pw-CzP"/>
     </inferredMetricsTieBreakers>
 </document>
