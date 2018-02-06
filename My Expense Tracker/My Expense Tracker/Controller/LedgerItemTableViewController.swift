@@ -24,6 +24,9 @@ class LedgerItemTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set up date picker
+        configureDatePicker()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -121,6 +124,25 @@ class LedgerItemTableViewController: UITableViewController {
     func configureView() {
     }
     
+    // TODO: - Clean up the following code. Violates DRY principle.
+    
+    func configureDatePicker() {
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMdd")
+        self.date.text = dateFormatter.string(from: date)
+        datePicker.datePickerMode = .date
+        datePicker.addTarget(self, action: #selector(self.setDate), for: .valueChanged)
+    }
+    
+    @objc func setDate() {
+        let date = datePicker.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMdd")
+        self.date.text = dateFormatter.string(from: date)
+        
+    }
+    
     // MARK: - Actions
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -128,10 +150,6 @@ class LedgerItemTableViewController: UITableViewController {
     
     
     @IBAction func save(_ sender: UIBarButtonItem) {
-        
-        
-        var date: String = ""
-        
         
         // Get type of item
         
@@ -143,6 +161,8 @@ class LedgerItemTableViewController: UITableViewController {
         }
         
         // Get date
+        
+        let date = self.date.text
         
         // Get item description
         

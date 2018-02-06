@@ -162,7 +162,6 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         let ledgerItem3 = LedgerItem(type: ledgerItemType3, date: ledgerItemDate3, description: ledgerItemDescription3, amount: ledgerItemAmount3)
         
         ledgerEntries += [ledgerItem1, ledgerItem2, ledgerItem3]
-        
     }
     
     @objc private func clearAllLedgerEntries() {
