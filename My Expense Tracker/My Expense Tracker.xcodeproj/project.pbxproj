@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7312455B20213F6800E3A0D5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7312455A20213F6800E3A0D5 /* Constants.swift */; };
+		7312455B20213F6800E3A0D5 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7312455A20213F6800E3A0D5 /* Helpers.swift */; };
 		733510362015372100938EFC /* AddNotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733510352015372100938EFC /* AddNotesCell.swift */; };
 		7335103820153A6700938EFC /* AddItemOrPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7335103720153A6700938EFC /* AddItemOrPriceCell.swift */; };
 		7335103A20153FC900938EFC /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7335103920153FC900938EFC /* DatePickerCell.swift */; };
@@ -51,7 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7312455A20213F6800E3A0D5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7312455A20213F6800E3A0D5 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		733510352015372100938EFC /* AddNotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesCell.swift; sourceTree = "<group>"; };
 		7335103720153A6700938EFC /* AddItemOrPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemOrPriceCell.swift; sourceTree = "<group>"; };
 		7335103920153FC900938EFC /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				736D45DA2020D2FD007F4C96 /* DataService.swift */,
-				7312455A20213F6800E3A0D5 /* Constants.swift */,
+				7312455A20213F6800E3A0D5 /* Helpers.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -370,7 +370,7 @@
 				73BCD0522014137F00CCF8F5 /* AppDelegate.swift in Sources */,
 				73E2044A201511100085FE3B /* CategoryTableViewCell.swift in Sources */,
 				73F815AC20211ED600590E7B /* LedgerItemSceneConfiguration.swift in Sources */,
-				7312455B20213F6800E3A0D5 /* Constants.swift in Sources */,
+				7312455B20213F6800E3A0D5 /* Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

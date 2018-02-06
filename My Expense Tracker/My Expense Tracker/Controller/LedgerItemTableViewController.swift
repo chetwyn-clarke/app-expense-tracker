@@ -22,11 +22,12 @@ class LedgerItemTableViewController: UITableViewController {
     var category: Category?
     var ledgerItem: LedgerItem?
     
+    var delegate: LedgerItemTableViewControllerDelegate? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set up date picker
-        configureDatePicker()
+        configureView()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -122,26 +123,27 @@ class LedgerItemTableViewController: UITableViewController {
     // MARK: - Actions
     
     func configureView() {
+        configureDatePicker()
     }
     
-    // TODO: - Clean up the following code. Violates DRY principle.
+    func formatDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMdd")
+        return dateFormatter.string(from:date)
+    }
     
     func configureDatePicker() {
         let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.setLocalizedDateFormatFromTemplate("MMMdd")
-        self.date.text = dateFormatter.string(from: date)
+        self.date.text = formatDate(date: date)
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(self.setDate), for: .valueChanged)
     }
     
     @objc func setDate() {
         let date = datePicker.date
-        let dateFormatter = DateFormatter()
-        dateFormatter.setLocalizedDateFormatFromTemplate("MMMdd")
-        self.date.text = dateFormatter.string(from: date)
-        
+        self.date.text = formatDate(date: date)
     }
+    
     
     // MARK: - Actions
     
