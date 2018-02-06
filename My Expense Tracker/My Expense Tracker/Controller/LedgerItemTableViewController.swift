@@ -8,10 +8,11 @@
 
 import UIKit
 
-class LedgerItemTableViewController: UITableViewController {
+class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -40,6 +41,7 @@ class LedgerItemTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     // MARK: - Table view data source
 
@@ -63,52 +65,28 @@ class LedgerItemTableViewController: UITableViewController {
         }
         
     }
+
     
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+    // MARK: - Text field delegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        if textField == itemDescription {
+            setSaveButtonStatus()
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+    
+        if textField == itemDescription {
+            setSaveButtonStatus()
+        }
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation
@@ -120,9 +98,16 @@ class LedgerItemTableViewController: UITableViewController {
     }
     */
     
-    // MARK: - Actions
+    // MARK: - Functions
     
     func configureView() {
+        
+        itemDescription.delegate = self
+        price.delegate = self
+        notes.delegate = self
+        
+        setSaveButtonStatus()
+        
         configureDatePicker()
     }
     
@@ -144,8 +129,20 @@ class LedgerItemTableViewController: UITableViewController {
         self.date.text = formatDate(date: date)
     }
     
+    func setSaveButtonStatus() {
+        let text = itemDescription.text ?? ""
+        saveButton.isEnabled = !text.isEmpty
+    }
+    
     
     // MARK: - Actions
+    
+    @IBAction func hideKeyboardOnTap(_ sender: UITapGestureRecognizer) {
+        itemDescription.resignFirstResponder()
+        price.resignFirstResponder()
+        notes.resignFirstResponder()
+    }
+    
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
     }

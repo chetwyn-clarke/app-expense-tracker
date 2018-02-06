@@ -588,7 +588,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="va7-Bz-7VF">
-                                                    <rect key="frame" x="16" y="-39" width="343" height="217"/>
+                                                    <rect key="frame" x="16" y="-38.5" width="343" height="216"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="539551338.02685499">
                                                         <!--2018-02-05 19:22:18 +0000-->
                                                     </date>
@@ -612,8 +612,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6BJ-Bt-9Z4">
-                                                    <rect key="frame" x="16" y="9" width="343" height="30"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6BJ-Bt-9Z4">
+                                                    <rect key="frame" x="16" y="13" width="343" height="22"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -633,8 +633,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4bY-oR-p1L">
-                                                    <rect key="frame" x="16" y="9" width="343" height="30"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4bY-oR-p1L">
+                                                    <rect key="frame" x="16" y="13" width="343" height="22"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
@@ -654,7 +654,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Notes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TP7-AO-gBE">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="Notes" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TP7-AO-gBE">
                                                     <rect key="frame" x="16" y="15" width="343" height="70"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="70" id="Log-dQ-2N4"/>
@@ -677,6 +677,7 @@
                         <connections>
                             <outlet property="dataSource" destination="d9w-bZ-ecp" id="wek-RG-uqA"/>
                             <outlet property="delegate" destination="d9w-bZ-ecp" id="BHo-xT-0e1"/>
+                            <outletCollection property="gestureRecognizers" destination="TbX-GK-QSC" appends="YES" id="32M-Zf-Kfx"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Item" id="Ezb-mX-Can">
@@ -697,10 +698,16 @@
                         <outlet property="itemDescription" destination="6BJ-Bt-9Z4" id="BFj-Rw-r4W"/>
                         <outlet property="notes" destination="TP7-AO-gBE" id="uHW-dF-D7K"/>
                         <outlet property="price" destination="4bY-oR-p1L" id="VE4-jw-oGo"/>
+                        <outlet property="saveButton" destination="okU-gH-vAG" id="kDb-JF-LWh"/>
                         <outlet property="segmentedControl" destination="Lcd-E3-Uba" id="DFK-YE-axu"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eaV-Yj-Y9g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="TbX-GK-QSC">
+                    <connections>
+                        <action selector="hideKeyboardOnTap:" destination="d9w-bZ-ecp" id="rfK-aG-Bsp"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3916" y="425.93703148425789"/>
         </scene>
