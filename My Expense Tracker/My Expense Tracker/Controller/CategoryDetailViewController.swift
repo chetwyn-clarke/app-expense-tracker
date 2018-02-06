@@ -9,7 +9,10 @@
 import UIKit
 import os.log
 
-class CategoryDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CategoryDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LedgerItemTableViewControllerDelegate {
+    
+    
+    
     
     //MARK: - Outlets
     
@@ -38,7 +41,7 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         
         // Update running total and table view with ledger items.
         loadSampleData()
-        updateView()
+        configureView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,7 +102,8 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
                 fatalError("Unexpected destination: \(String(describing: segue.destination))")
             }
             
-            receivingViewController.category = selectedCategory
+            //receivingViewController.category = selectedCategory
+            receivingViewController.delegate = self
             receivingViewController.navigationItem.title = "Add Item"
             
             //destinationViewController.initSections()
@@ -123,12 +127,14 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
     
     // MARK: - Functions
     
-    func updateView() {
+    func configureView() {
         if let category = category {
             navigationItem.title = category.name
             category.calculateRunningTotal(ledgerEntries: ledgerEntries)
+           
             runningTotal.text = String(describing: category.runningTotal)
             print(runningTotal.text)
+            ledgerEntries = category.ledgerAmounts
         }
         
         // Configure right bar button item
@@ -136,6 +142,20 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         let resetButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(clearAllLedgerEntries))
         resetButton.tintColor = UIColor.red
         navigationItem.rightBarButtonItem = resetButton
+        
+        
+    }
+    
+    func userDidCreate(ledgerItem: LedgerItem) {
+        guard let category = category else { return }
+        category.addLedgerItem(item: ledgerItem)
+        ledgerEntries = category.ledgerAmounts
+        tableView.reloadData()
+        
+    }
+    
+    func userDidEdit(ledgerItem: LedgerItem) {
+    
     }
     
     private func loadSampleData() {

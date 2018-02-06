@@ -20,7 +20,7 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     @IBOutlet weak var price: UITextField!
     @IBOutlet weak var notes: UITextField!
     
-    var category: Category?
+    //var category: Category?
     var ledgerItem: LedgerItem?
     
     var delegate: LedgerItemTableViewControllerDelegate? = nil
@@ -168,6 +168,7 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         let description = self.itemDescription.text ?? ""
         
         // Convert price text field to a Double
+        
         var amount: Double
         let price = self.price.text ?? ""
         if price.isEmpty {
@@ -178,16 +179,26 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         
         let item = LedgerItem(type: type, date: date, description: description, amount: amount)
         
-        category?.addLedgerItem(item: item)
+        //category?.addLedgerItem(item: item)
+        
+        // Pass ledger item to previous VC, and save it there.
+        
+        
         
         // Save category disk, so that it is updated when this VC is dismissed.
         
-        // If presented modally, then dismiss the view. If presented with navigation controller, then pop off the stack.
+        // If presented modally, save the newly created Ledger Item, then dismiss the view. If presented with navigation controller, save the edited LedgerItem, then pop off the stack.
         
         let isAddingAnItem = presentingViewController is UINavigationController
         
         if isAddingAnItem {
+            
+            guard let delegate = delegate else {
+                fatalError("No delegate set")
+            }
+            delegate.userDidCreate(ledgerItem: item)
             dismiss(animated: true, completion: nil)
+            
         }
         //else if let owningNavigationController ... 
         
