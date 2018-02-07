@@ -16,25 +16,28 @@ class LedgerItem {
     var date: String?
     var itemDescription: String
     var amount: Double
+    var notes: String?
     
-    //MARK: - Initializer
+    // MARK: - Initializer
     
-    init(type: LedgerItemType, date: String?, description: String, amount: Double) {
+    init(type: LedgerItemType, date: String?, description: String, amount: Double, notes: String?) {
         
-        if date == nil {
-            self.date = ""
-        } else {
-            self.date = date
-        }
+//        if date == nil {
+//            self.date = ""
+//        } else {
+//            self.date = date
+//        }
+        
+        self.date = date ?? ""
         
         self.type = type
         self.itemDescription = description
         
-        if type == .expense {
-            self.amount = -amount
-        } else {
-            self.amount = amount
-        }
+        // No need to change amount depending on whether it is an expense or an item; the Category Class description handles that calculation.
+        
+        self.amount = amount
+        self.notes = notes ?? ""
+        
     }
     
 }

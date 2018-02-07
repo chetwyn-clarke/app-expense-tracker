@@ -150,48 +150,52 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
-        // Get type of item
-        
-        var type: LedgerItemType
-        if segmentedControl.selectedSegmentIndex == 0 {
-            type = .income
-        } else {
-            type = .expense
-        }
-        
-        // Get date
-        
-        let date = self.date.text
-        
-        // Get item description
-        
-        let description = self.itemDescription.text ?? ""
-        
-        // Convert price text field to a Double
-        
-        var amount: Double
-        let price = self.price.text ?? ""
-        if price.isEmpty {
-            amount = 0
-        } else {
-            amount = Double(price)!
-        }
-        
-        let item = LedgerItem(type: type, date: date, description: description, amount: amount)
-        
-        //category?.addLedgerItem(item: item)
-        
-        // Pass ledger item to previous VC, and save it there.
-        
-        
-        
-        // Save category disk, so that it is updated when this VC is dismissed.
-        
-        // If presented modally, save the newly created Ledger Item, then dismiss the view. If presented with navigation controller, save the edited LedgerItem, then pop off the stack.
-        
-        let isAddingAnItem = presentingViewController is UINavigationController
-        
-        if isAddingAnItem {
+        if ledgerItem == nil {
+            
+            // Get type of item
+            
+            var type: LedgerItemType
+            if segmentedControl.selectedSegmentIndex == 0 {
+                type = .income
+            } else {
+                type = .expense
+            }
+            
+            // Get date
+            
+            let date = self.date.text
+            
+            // Get item description
+            
+            let description = self.itemDescription.text ?? ""
+            
+            // Convert price text field to a Double
+            
+            var amount: Double
+            let price = self.price.text ?? ""
+            if price.isEmpty {
+                amount = 0
+            } else {
+                amount = Double(price)!
+            }
+            
+            // Get notes
+            
+            let notes = self.notes.text ?? ""
+            
+            // Initialise item
+            
+            let item = LedgerItem(type: type, date: date, description: description, amount: amount, notes: notes)
+            
+            //category?.addLedgerItem(item: item)
+            
+            // Pass ledger item to previous VC, and save it there.
+            
+            
+            
+            // Save category disk, so that it is updated when this VC is dismissed.
+            
+            // If presented modally, save the newly created Ledger Item, then dismiss the view. If presented with navigation controller, save the edited LedgerItem, then pop off the stack.
             
             guard let delegate = delegate else {
                 fatalError("No delegate set")
@@ -199,14 +203,19 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
             delegate.userDidCreate(ledgerItem: item)
             dismiss(animated: true, completion: nil)
             
+        } else if ledgerItem != nil {
+            
+            //segmentedControl
+            date.text = ledgerItem?.date
+            //datePicker.date =
+            itemDescription.text = ledgerItem?.itemDescription
+            price.text = String(describing: ledgerItem?.amount)
+            notes.text = ledgerItem?.notes
+            
         }
+        
+        
         //else if let owningNavigationController ... 
-        
-        
-        
-        
-        
-        
         
     }
     

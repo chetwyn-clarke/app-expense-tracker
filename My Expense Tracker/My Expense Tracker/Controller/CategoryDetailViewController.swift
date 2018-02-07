@@ -26,7 +26,7 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
      */
     var category: Category?
     
-    /* This value is passed by LedgerItemViewController in 'prepare(for:sender:)'
+    /* This value is passed by LedgerItemTableViewController in delegate'
      */
     var ledgerEntries = [LedgerItem]()
 
@@ -94,9 +94,9 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
                 fatalError("Unexpected destination: \(String(describing: segue.destination))")
             }
             
-            guard let selectedCategory = self.category else {
-                fatalError("No category selected")
-            }
+//            guard let selectedCategory = self.category else {
+//                fatalError("No category selected")
+//            }
             
             guard let receivingViewController = destinationViewController.topViewController as? LedgerItemTableViewController else {
                 fatalError("Unexpected destination: \(String(describing: segue.destination))")
@@ -107,6 +107,23 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
             receivingViewController.navigationItem.title = "Add Item"
             
             //destinationViewController.initSections()
+            
+        case "toShowLedgerItemDetail":
+            
+            guard let destinationViewController = segue.destination as? LedgerItemTableViewController else {
+                fatalError("Unexpected segue identifier: \(String(describing: segue.identifier))")
+            }
+            
+            guard let selectedLedgerItemCell = sender as? CategoryDetailTableViewCell else {
+                fatalError("Unexpected sender: \(String(describing: sender))")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedLedgerItemCell) else {
+                fatalError("The selected cell is not being displayed by the table.")
+            }
+            
+            let selectedItem = ledgerEntries[indexPath.row]
+            destinationViewController.ledgerItem = selectedItem
             
         default:
             fatalError("Unexpected segue identifier: \(String(describing: segue.identifier))")
@@ -147,9 +164,16 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func userDidCreate(ledgerItem: LedgerItem) {
-        guard let category = category else { return }
+        
+        guard let category = category else {
+            fatalError("No category available.")
+        }
+        
         category.addLedgerItem(item: ledgerItem)
         ledgerEntries = category.ledgerAmounts
+        category.calculateRunningTotal(ledgerEntries: ledgerEntries)
+        runningTotal.text = String(describing: category.runningTotal)
+        
         tableView.reloadData()
         
     }
@@ -165,21 +189,21 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         let ledgerItemDescription1 = "Groceries"
         let ledgerItemAmount1 = 31.25
         
-        let ledgerItem1 = LedgerItem(type: ledgerItemType1, date: ledgerItemDate1, description: ledgerItemDescription1, amount: ledgerItemAmount1)
+        let ledgerItem1 = LedgerItem(type: ledgerItemType1, date:ledgerItemDate1, description: ledgerItemDescription1, amount: ledgerItemAmount1, notes: "Riba Smith")
         
         let ledgerItemType2 = LedgerItemType.expense
         let ledgerItemDate2 = "Jan 30"
         let ledgerItemDescription2 = "Trip to San Blas"
         let ledgerItemAmount2 = 50.43
         
-        let ledgerItem2 = LedgerItem(type: ledgerItemType2, date: ledgerItemDate2, description: ledgerItemDescription2, amount: ledgerItemAmount2)
+        let ledgerItem2 = LedgerItem(type: ledgerItemType2, date: ledgerItemDate2, description: ledgerItemDescription2, amount: ledgerItemAmount2, notes: "")
         
         let ledgerItemType3 = LedgerItemType.expense
         let ledgerItemDate3 = "Jan 20"
         let ledgerItemDescription3 = "Suvlas"
         let ledgerItemAmount3 = 9.25
         
-        let ledgerItem3 = LedgerItem(type: ledgerItemType3, date: ledgerItemDate3, description: ledgerItemDescription3, amount: ledgerItemAmount3)
+        let ledgerItem3 = LedgerItem(type: ledgerItemType3, date: ledgerItemDate3, description: ledgerItemDescription3, amount: ledgerItemAmount3, notes: "")
         
         ledgerEntries += [ledgerItem1, ledgerItem2, ledgerItem3]
     }
@@ -196,7 +220,7 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
             fatalError("No category available.")
         }
         category.calculateRunningTotal(ledgerEntries: ledgerEntries)
-        let firstLedgerItem = LedgerItem(type: .income, date: "", description: "Starting Amount", amount: category.startingAmount)
+        let firstLedgerItem = LedgerItem(type: .income, date: "", description: "Starting Amount", amount: category.startingAmount, notes: "")
         ledgerEntries.append(firstLedgerItem)
         tableView.reloadData()
         runningTotal.text = String(describing: category.runningTotal)
