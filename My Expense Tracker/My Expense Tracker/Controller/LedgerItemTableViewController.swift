@@ -14,7 +14,7 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var displayedDate: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var itemDescription: UITextField!
     @IBOutlet weak var price: UITextField!
@@ -106,6 +106,26 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         price.delegate = self
         notes.delegate = self
         
+        if let item = ledgerItem {
+            
+            // Set up segmented control
+            
+            if item.type == .income {
+                segmentedControl.selectedSegmentIndex = 0
+            } else  {
+                segmentedControl.selectedSegmentIndex = 1
+            }
+            
+            // Set date picker to show item's date.
+            
+            datePicker.date = item.date
+            displayedDate.text = formatDate(date: datePicker.date)
+            
+            itemDescription.text = item.itemDescription
+            price.text = String(describing: item.amount)
+            notes.text = item.notes
+        }
+        
         setSaveButtonStatus()
         
         configureDatePicker()
@@ -119,14 +139,14 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     
     func configureDatePicker() {
         let date = Date()
-        self.date.text = formatDate(date: date)
+        self.displayedDate.text = formatDate(date: date)
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(self.setDate), for: .valueChanged)
     }
     
     @objc func setDate() {
         let date = datePicker.date
-        self.date.text = formatDate(date: date)
+        self.displayedDate.text = formatDate(date: date)
     }
     
     func setSaveButtonStatus() {
@@ -163,7 +183,7 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
             
             // Get date
             
-            let date = self.date.text
+            let date = datePicker.date
             
             // Get item description
             
@@ -174,7 +194,7 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
             var amount: Double
             let price = self.price.text ?? ""
             if price.isEmpty {
-                amount = 0
+                amount = 0.00
             } else {
                 amount = Double(price)!
             }
@@ -205,12 +225,7 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
             
         } else if ledgerItem != nil {
             
-            //segmentedControl
-            date.text = ledgerItem?.date
-            //datePicker.date =
-            itemDescription.text = ledgerItem?.itemDescription
-            price.text = String(describing: ledgerItem?.amount)
-            notes.text = ledgerItem?.notes
+            
             
         }
         

@@ -13,22 +13,16 @@ class LedgerItem {
     //MARK: - Properties
     
     var type: LedgerItemType
-    var date: String?
+    var date: Date
     var itemDescription: String
     var amount: Double
     var notes: String?
     
     // MARK: - Initializer
     
-    init(type: LedgerItemType, date: String?, description: String, amount: Double, notes: String?) {
+    init(type: LedgerItemType, date: Date, description: String, amount: Double, notes: String?) {
         
-//        if date == nil {
-//            self.date = ""
-//        } else {
-//            self.date = date
-//        }
-        
-        self.date = date ?? ""
+        self.date = date
         
         self.type = type
         self.itemDescription = description
