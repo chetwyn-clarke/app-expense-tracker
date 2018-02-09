@@ -693,8 +693,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="date" destination="CmC-Lk-Wd4" id="zt3-gq-Nat"/>
                         <outlet property="datePicker" destination="va7-Bz-7VF" id="8Is-Y9-CTS"/>
+                        <outlet property="displayedDate" destination="CmC-Lk-Wd4" id="xsr-9X-bAV"/>
                         <outlet property="itemDescription" destination="6BJ-Bt-9Z4" id="BFj-Rw-r4W"/>
                         <outlet property="notes" destination="TP7-AO-gBE" id="uHW-dF-D7K"/>
                         <outlet property="price" destination="4bY-oR-p1L" id="VE4-jw-oGo"/>

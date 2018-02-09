@@ -124,6 +124,14 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
             itemDescription.text = item.itemDescription
             price.text = String(describing: item.amount)
             notes.text = item.notes
+            
+        } else {
+            
+            // In the case there is no ledger item, set displayed date to current date.
+            
+            let date = Date()
+            self.displayedDate.text = formatDate(date: date)
+            
         }
         
         setSaveButtonStatus()
@@ -138,8 +146,6 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     }
     
     func configureDatePicker() {
-        let date = Date()
-        self.displayedDate.text = formatDate(date: date)
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(self.setDate), for: .valueChanged)
     }

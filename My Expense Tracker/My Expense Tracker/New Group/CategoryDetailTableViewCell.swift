@@ -19,7 +19,13 @@ class CategoryDetailTableViewCell: UITableViewCell {
     // MARK: - Configuration
     
     func configureCell(ledgerItem: LedgerItem) {
-        date.text = ledgerItem.date
+        
+        // Format and show the date.
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMdd")
+        date.text = dateFormatter.string(from: ledgerItem.date)
+            
         itemDescription.text = ledgerItem.itemDescription
         amount.text = String(ledgerItem.amount)
     }
