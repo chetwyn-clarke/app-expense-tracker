@@ -160,6 +160,47 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         saveButton.isEnabled = !text.isEmpty
     }
     
+    private func createItemFromEnteredUserValues() -> LedgerItem {
+        
+        // Get type of item
+        
+        var type: LedgerItemType
+        if segmentedControl.selectedSegmentIndex == 0 {
+            type = .income
+        } else {
+            type = .expense
+        }
+        
+        // Get date
+        
+        let date = datePicker.date
+        
+        // Get item description
+        
+        let description = self.itemDescription.text ?? ""
+        
+        // Convert price text field to a Double
+        
+        var amount: Double
+        let price = self.price.text ?? ""
+        if price.isEmpty {
+            amount = 0.00
+        } else {
+            amount = Double(price)!
+        }
+        
+        // Get notes
+        
+        let notes = self.notes.text ?? ""
+        
+        // Initialise item
+        
+        let item = LedgerItem(type: type, date: date, description: description, amount: amount, notes: notes)
+        
+        return item
+        
+    }
+    
     
     // MARK: - Actions
     
@@ -176,7 +217,15 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
+        /*
+         To pass data to the previous view controller we are not using an unwind segue; instead a protocol (LedgerItemTableViewControllerDelegate) is being used. We therefore need to dismiss this view properly depending on how it was presented. If modal presentation was used (i.e. creating a new LedgerItem), the view needs to be dismissed. If 'push' presentation was used (i.e. editing an existing LedgerItem), the view needs to be 'popped' off the navigation stack to return to the previous scene.
+         */
+ 
+        // Creating a new Ledger Item
+        
         if ledgerItem == nil {
+            
+            // TODO: Clean the following code. It violates the DRY principle (see else block).
             
             // Get type of item
             
@@ -213,30 +262,67 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
             
             let item = LedgerItem(type: type, date: date, description: description, amount: amount, notes: notes)
             
-            //category?.addLedgerItem(item: item)
-            
             // Pass ledger item to previous VC, and save it there.
             
-            
-            
             // Save category disk, so that it is updated when this VC is dismissed.
-            
-            // If presented modally, save the newly created Ledger Item, then dismiss the view. If presented with navigation controller, save the edited LedgerItem, then pop off the stack.
             
             guard let delegate = delegate else {
                 fatalError("No delegate set")
             }
             delegate.userDidCreate(ledgerItem: item)
+            
             dismiss(animated: true, completion: nil)
-            
-        } else if ledgerItem != nil {
-            
-            
             
         }
         
+        // Editing an existing LedgerItem
         
-        //else if let owningNavigationController ... 
+        else if ledgerItem != nil {
+            
+            // Get type of item
+            
+            var type: LedgerItemType
+            if segmentedControl.selectedSegmentIndex == 0 {
+                type = .income
+            } else {
+                type = .expense
+            }
+            
+            // Get date
+            
+            let date = datePicker.date
+            
+            // Get item description
+            
+            let description = self.itemDescription.text ?? ""
+            
+            // Convert price text field to a Double
+            
+            var amount: Double
+            let price = self.price.text ?? ""
+            if price.isEmpty {
+                amount = 0.00
+            } else {
+                amount = Double(price)!
+            }
+            
+            // Get notes
+            
+            let notes = self.notes.text ?? ""
+            
+            // Initialise item
+            
+            let item = LedgerItem(type: type, date: date, description: description, amount: amount, notes: notes)
+            
+            guard let delegate = delegate else {
+                fatalError("No delegate set")
+            }
+            
+            delegate.userDidEdit(ledgerItem: item)
+            
+            navigationController?.popViewController(animated: true)
+            
+        }
         
     }
     

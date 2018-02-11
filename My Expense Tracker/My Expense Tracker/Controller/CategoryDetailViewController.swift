@@ -19,11 +19,13 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
     
     //MARK: - Properties
     
-    /* This value is passed by CategoryViewController in 'prepare(for:sender:)
+    /*
+     This value is passed by CategoryViewController in 'prepare(for:sender:)
      */
     var category: Category?
     
-    /* This value is passed by LedgerItemTableViewController in delegate'
+    /*
+     This value is passed by LedgerItemTableViewController in delegate functiions
      */
     var ledgerEntries = [LedgerItem]()
 
@@ -122,6 +124,9 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
             let selectedItem = ledgerEntries[indexPath.row]
             destinationViewController.ledgerItem = selectedItem
             
+            destinationViewController.delegate = self
+            destinationViewController.navigationItem.title = "Edit Item"
+            
         default:
             fatalError("Unexpected segue identifier: \(String(describing: segue.identifier))")
         }
@@ -171,11 +176,37 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         category.calculateRunningTotal(ledgerEntries: ledgerEntries)
         runningTotal.text = String(describing: category.runningTotal)
         
+        // TODO: Save category to disk beore reloading data.
+        
         tableView.reloadData()
         
     }
     
     func userDidEdit(ledgerItem: LedgerItem) {
+        
+        /*
+         If a LedgerItem was selected for editing, then the selected row has an index path, and we can use that to determine which item and cell to update.
+         */
+        
+        guard let selectedIndexPath = tableView.indexPathForSelectedRow else {
+            fatalError("The LedgerItem selected has no indexPath.")
+        }
+        
+        ledgerEntries[selectedIndexPath.row] = ledgerItem
+        
+        guard let category = category else {
+            fatalError("No category available.")
+        }
+        category.ledgerAmounts = ledgerEntries
+        category.calculateRunningTotal(ledgerEntries: ledgerEntries)
+        
+        // Save the category to disk.
+        
+        // TODO: Change the category.calculateRunningTotal so that it uses its own ledgerAmounts category instead of having to pass in an argument. It should then return a string, which you use to set the UILabel here.
+        
+        tableView.reloadRows(at: [selectedIndexPath], with: .none)
+        
+        runningTotal.text = String(describing: category.runningTotal)
     
     }
     
