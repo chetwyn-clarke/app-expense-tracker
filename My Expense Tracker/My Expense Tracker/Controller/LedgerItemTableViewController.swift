@@ -212,6 +212,9 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
+        
+        // TODO: Finish this function
+        
     }
     
     
@@ -225,44 +228,7 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         
         if ledgerItem == nil {
             
-            // TODO: Clean the following code. It violates the DRY principle (see else block).
-            
-            // Get type of item
-            
-            var type: LedgerItemType
-            if segmentedControl.selectedSegmentIndex == 0 {
-                type = .income
-            } else {
-                type = .expense
-            }
-            
-            // Get date
-            
-            let date = datePicker.date
-            
-            // Get item description
-            
-            let description = self.itemDescription.text ?? ""
-            
-            // Convert price text field to a Double
-            
-            var amount: Double
-            let price = self.price.text ?? ""
-            if price.isEmpty {
-                amount = 0.00
-            } else {
-                amount = Double(price)!
-            }
-            
-            // Get notes
-            
-            let notes = self.notes.text ?? ""
-            
-            // Initialise item
-            
-            let item = LedgerItem(type: type, date: date, description: description, amount: amount, notes: notes)
-            
-            // Pass ledger item to previous VC, and save it there.
+            let item = createItemFromEnteredUserValues()
             
             // Save category disk, so that it is updated when this VC is dismissed.
             
@@ -279,40 +245,7 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         
         else if ledgerItem != nil {
             
-            // Get type of item
-            
-            var type: LedgerItemType
-            if segmentedControl.selectedSegmentIndex == 0 {
-                type = .income
-            } else {
-                type = .expense
-            }
-            
-            // Get date
-            
-            let date = datePicker.date
-            
-            // Get item description
-            
-            let description = self.itemDescription.text ?? ""
-            
-            // Convert price text field to a Double
-            
-            var amount: Double
-            let price = self.price.text ?? ""
-            if price.isEmpty {
-                amount = 0.00
-            } else {
-                amount = Double(price)!
-            }
-            
-            // Get notes
-            
-            let notes = self.notes.text ?? ""
-            
-            // Initialise item
-            
-            let item = LedgerItem(type: type, date: date, description: description, amount: amount, notes: notes)
+            let item = createItemFromEnteredUserValues()
             
             guard let delegate = delegate else {
                 fatalError("No delegate set")
