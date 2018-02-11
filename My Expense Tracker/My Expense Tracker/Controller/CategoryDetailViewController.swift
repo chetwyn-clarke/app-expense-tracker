@@ -237,6 +237,11 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         let ledgerItem3 = LedgerItem(type: ledgerItemType3, date: ledgerItemDate3!, description: ledgerItemDescription3, amount: ledgerItemAmount3, notes: "")
         
         ledgerEntries += [ledgerItem1, ledgerItem2, ledgerItem3]
+        ledgerEntries.sort { (item1, item2) -> Bool in
+            let date1 = item1.date
+            let date2 = item2.date
+            return date1 > date2
+        }
     }
     
     @objc private func clearAllLedgerEntries() {

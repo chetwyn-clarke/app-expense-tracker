@@ -20,21 +20,17 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     @IBOutlet weak var price: UITextField!
     @IBOutlet weak var notes: UITextField!
     
-    //var category: Category?
     var ledgerItem: LedgerItem?
-    
     var delegate: LedgerItemTableViewControllerDelegate? = nil
+    
+    
+    // MARK: - View set up
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,15 +84,6 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     // MARK: - Functions
     
@@ -127,7 +114,9 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
             
         } else {
             
-            // In the case there is no ledger item, set displayed date to current date.
+            // In the case there is no ledger item, set default for segmented control to "Expense" and displayed date to current date.
+            
+            segmentedControl.selectedSegmentIndex = 1
             
             let date = Date()
             self.displayedDate.text = formatDate(date: date)
@@ -145,7 +134,7 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         return dateFormatter.string(from:date)
     }
     
-    func configureDatePicker() {
+    private func configureDatePicker() {
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(self.setDate), for: .valueChanged)
     }
@@ -213,7 +202,19 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         
-        // TODO: Finish this function
+        /*
+         This view needs to be dismissed properly depending on how it was presented. If modal presentation was used (i.e. creating a new LedgerItem), the view needs to be dismissed. If 'push' presentation was used (i.e. editing an existing LedgerItem), the view needs to be 'popped' off the navigation stack to return to the previous scene.
+         */
+        
+        let isPresentingInAddLedgerItemMode = presentingViewController is UINavigationController
+        
+        if isPresentingInAddLedgerItemMode {
+            dismiss(animated: true, completion: nil)
+        } else if let owningNavigationController = self.navigationController {
+            owningNavigationController.popViewController(animated: true)
+        } else {
+            fatalError("LedgerItemTableViewController is not in a navigation controller.")
+        }
         
     }
     
@@ -258,8 +259,5 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         }
         
     }
-    
-    
-    
 
 }
