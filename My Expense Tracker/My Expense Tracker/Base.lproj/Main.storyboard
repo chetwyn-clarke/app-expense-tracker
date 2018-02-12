@@ -178,7 +178,9 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="EcK-Fy-AVw"/>
+                                    <constraint firstItem="jYn-U9-BVd" firstAttribute="centerY" secondItem="J2i-Ml-Zgg" secondAttribute="centerY" id="F7b-z1-2uL"/>
                                     <constraint firstAttribute="width" constant="290" id="KJC-T0-FOT"/>
+                                    <constraint firstItem="2tl-U6-MxJ" firstAttribute="centerY" secondItem="J2i-Ml-Zgg" secondAttribute="centerY" id="xXt-RS-7Wu"/>
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5yl-xV-pDf">

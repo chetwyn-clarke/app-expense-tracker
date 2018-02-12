@@ -11,13 +11,10 @@ import os.log
 
 class CategoryDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LedgerItemTableViewControllerDelegate {
     
-    //MARK: - Outlets
+    //MARK: - Properties
     
     @IBOutlet weak var runningTotal: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    
-    
-    //MARK: - Properties
     
     /*
      This value is passed by CategoryViewController in 'prepare(for:sender:)
@@ -137,16 +134,15 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
     @IBAction func unWindToCategoryDetail(sender: UIStoryboardSegue) {
         
     }
-    
-//    @IBAction func addLedgerItem(_ sender: Any) {
-//        performSegue(withIdentifier: "toAddLedgerItem", sender: nil)
-//    }
-    
-    
+        
     
     // MARK: - Functions
     
     func configureView() {
+        
+        runningTotal.adjustsFontSizeToFitWidth = true
+        runningTotal.minimumScaleFactor = 50 / 150
+        
         if let category = category {
             navigationItem.title = category.name
             category.calculateRunningTotal(ledgerEntries: ledgerEntries)
