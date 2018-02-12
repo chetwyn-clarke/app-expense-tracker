@@ -7,19 +7,20 @@
 //
 
 import UIKit
+import os.log
 
-class Category {
+class Category: NSObject, NSCoding {
     
     // MARK: - Properties
     
     var name: String
     var startingAmount: Double
-    var runningTotal: Int = 0
-    var ledgerAmounts = [LedgerItem]()
+    var runningTotal: Int
+    var ledgerAmounts: [LedgerItem]
     
     // MARK: - Initialisation
     
-    init?(name: String, amount: Double?) {
+    init?(name: String, amount: Double?, runningTotal: Int?, ledgerAmounts: [LedgerItem]?) {
         
         // Name most not be empty.
         guard !name.isEmpty else {
@@ -28,7 +29,10 @@ class Category {
         
         // Initialize properties
         self.name = name
-        self.startingAmount = amount ?? 0
+        self.startingAmount = amount ?? 0.00
+        self.runningTotal = runningTotal ?? 0
+        self.ledgerAmounts = ledgerAmounts ?? [LedgerItem]()
+        
     }
     
     // MARK: - Functions
@@ -60,7 +64,74 @@ class Category {
         }
     }
     
+    func calculateRunningTotal() {
+        
+        if ledgerAmounts.isEmpty {
+            runningTotal = Int(startingAmount)
+        }
+        else {
+            var sumOfLedgerEntries = 0.0
+            
+            for item in ledgerAmounts {
+                var amount = 0.0
+                if item.type == .expense {
+                    amount = -(item.amount)
+                } else {
+                    amount = item.amount
+                }
+                //TODO: Check syntax, and see if this can be simplified.
+                sumOfLedgerEntries = sumOfLedgerEntries + amount
+                //sumOfLedgerEntries += entry
+            }
+            
+            runningTotal = Int(round(startingAmount + sumOfLedgerEntries))
+            
+            //TODO: Run a unit test for this function.
+            
+        }
+    }
+    
     func addLedgerItem(item: LedgerItem) {
         self.ledgerAmounts.append(item)
     }
+    
+    // MARK: - Data Persistence
+    
+    struct PropertyKey {
+        static let name = "name"
+        static let startingAmount = "starting Amount"
+        static let runningTotal = "running total"
+        static let ledgerItems = "ledger items"
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        
+        // Encode each class variable to a specific key
+        
+        aCoder.encode(name, forKey: PropertyKey.name)
+        aCoder.encode(startingAmount, forKey: PropertyKey.startingAmount)
+        aCoder.encode(runningTotal, forKey: PropertyKey.runningTotal)
+        aCoder.encode(ledgerAmounts, forKey: PropertyKey.ledgerItems)
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        
+        // Decode each item to a specific variable
+        
+        guard let name = aDecoder.decodeObject(forKey: PropertyKey.name) as? String else {
+            os_log("Unable to decode the name for a Category object.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        
+        let amount = aDecoder.decodeDouble(forKey: PropertyKey.startingAmount)
+        
+        let runningTotal = aDecoder.decodeInteger(forKey: PropertyKey.runningTotal)
+        
+        let ledgerItems = aDecoder.decodeObject(forKey: PropertyKey.ledgerItems) as? [LedgerItem]
+        
+        // Use the variables to initialise the Category
+        
+        self.init(name: name, amount: amount, runningTotal: runningTotal, ledgerAmounts: ledgerItems)
+    }
+    
 }

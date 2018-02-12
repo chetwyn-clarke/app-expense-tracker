@@ -36,6 +36,10 @@ class DataService {
         // TODO: Build this using the example in the Food Tracker App
     }
     
+    func loadCategories() {
+        // TODO:
+    }
+    
     func getLedgerItemSceneCells() -> [LedgerItemSceneCell] {
         return ledgerItemViewControllerCells
     }
