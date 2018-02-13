@@ -21,3 +21,7 @@ protocol LedgerItemTableViewControllerDelegate {
     func userDidCreate(ledgerItem: LedgerItem)
     func userDidEdit(ledgerItem: LedgerItem)
 }
+
+protocol CategoryTransferDelegate {
+    func userDidEdit(category: Category)
+}

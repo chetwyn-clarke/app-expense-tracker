@@ -21,6 +21,7 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
     var category: Category?
+    var delegate: CategoryTransferDelegate? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,25 +106,57 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
-        let name = categoryName.text ?? ""
-        var amount = 0.0
-        if let amnt = startingAmount.text {
-            if !amnt.isEmpty {
-                amount = Double(amnt)!
+        // Creating a new category
+        
+        if category == nil {
+            
+            let name = categoryName.text ?? "New Category"
+            var amount = 0.0
+            if let amnt = startingAmount.text {
+                if !amnt.isEmpty {
+                    amount = Double(amnt)!
+                }
+            } else {
+                os_log("No starting amount added.", log: OSLog.default, type: .debug)
             }
-        } else {
-            os_log("No starting amount added.", log: OSLog.default, type: .debug)
+            
+            category = Category(name: name, amount: amount, runningTotal: nil, ledgerAmounts: nil)
+            
+            if let category = category {
+                DataService.instance.saveCategoryToCategories(category: category)
+            }
+            
+            print("Category Count: \(DataService.instance.getCategories().count)")
+            
+            determinePresentingViewControllerAndDismiss()
+            
         }
         
-        category = Category(name: name, amount: amount)
-        
-        if let category = category {
-            DataService.instance.saveCategoryToCategories(category: category)
+        // Editing an existing category
+            
+        else if category != nil {
+            
+            guard let category = category else {
+                fatalError("No category was sent in segue to this view controller.")
+            }
+            
+            let name = categoryName.text ?? "Edited Category"
+            let startAmount = startingAmount.text ?? "0.00"
+            
+            category.name = name
+            category.startingAmount = Double(startAmount)!
+            
+            guard let delegate = delegate else {
+                fatalError("No delegate set.")
+            }
+            
+            delegate.userDidEdit(category: category)
+            
+            // TODO: Save category array or use a protocol to send the data back
+            
+            determinePresentingViewControllerAndDismiss()
+            
         }
-        
-        print("Category Count: \(DataService.instance.getCategories().count)")
-        
-        determinePresentingViewControllerAndDismiss()
         
     }
     
