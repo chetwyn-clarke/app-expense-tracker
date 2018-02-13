@@ -18,7 +18,8 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        navigationItem.leftBarButtonItem = editButtonItem
         
         // Set tableView delegate and data source
         tableView.dataSource = self
@@ -26,8 +27,10 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         
         // Load Data
         
+        if categories.isEmpty {
+            loadSampleData()
+        }
         
-        loadSampleData()
         
         //initCategories()
         
@@ -35,15 +38,10 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //tableView.reloadData()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        tableView.reloadData()
     }
     
-    //MARK: Table View Data Source
+    //MARK: - Table View Data Source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
@@ -60,6 +58,17 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            categories.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
     //MARK: Navigation
     
     /*
@@ -69,7 +78,9 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if segue.identifier == "toCategoryDetail" {
+        switch (segue.identifier ?? "") {
+            
+        case "toCategoryDetail":
             
             guard let categoryDetailVC = segue.destination as? CategoryDetailViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
@@ -86,7 +97,23 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
             let selectedCategory = categories[indexPath.row]
             categoryDetailVC.category = selectedCategory
             
+        case "toAddCategory":
+            
+            guard let destinationViewController = segue.destination as? UINavigationController else {
+                fatalError("Unexpected destination: \(String(describing: segue.destination))")
+            }
+            
+            guard let receivingViewController = destinationViewController.topViewController as? AddCategoryViewController else {
+                fatalError("Unexpected destination: \(String(describing: segue.destination))")
+            }
+            
+            receivingViewController.delegate = self
+            receivingViewController.navigationItem.title = "Add Category"
+            
+        default:
+            fatalError("Unexpected segue identifier: \(String(describing: segue.identifier))")
         }
+        
     }
     
     //MARK: Private Functions
@@ -154,6 +181,16 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
     }
+    
+}
+
+extension CategoryViewController: CategoryTransferDelegate {
+    func userDidCreateOrEdit(category: Category) {
+        let newIndexPath = IndexPath(row: categories.count, section: 0)
+        categories.append(category)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
+    
     
 }
 

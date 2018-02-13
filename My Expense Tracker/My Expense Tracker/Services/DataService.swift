@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 class DataService {
     
@@ -16,15 +17,18 @@ class DataService {
     
     // MARK: - Properties
 
-    private var categories = [Category]()
+    private var _categories = [Category]()
     
-    private var ledgerItemViewControllerCells = [
-        LedgerItemSceneCell(name: "Type", section: .type),
-        LedgerItemSceneCell(name: "Date", section: .details),
-        LedgerItemSceneCell(name: "Description", section: .details),
-        LedgerItemSceneCell(name: "Price", section: .details),
-        LedgerItemSceneCell(name: "Notes", section: .notes)
-    ]
+    var categories: [Category] {
+        return _categories
+    }
+    
+    // MARK: - Archiving Paths
+    
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("categories")
+    
     
     // MARK: - Functions
     
@@ -33,18 +37,24 @@ class DataService {
     }
     
     func saveCategories() {
-        // TODO: Build this using the example in the Food Tracker App
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(_categories, toFile: DataService.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Categories successfully saved.", log: .default, type: .debug)
+        } else {
+            os_log("Failed to save categories...", log: .default, type: .debug)
+        }
     }
     
-    func loadCategories() {
-        // TODO:
+    func loadCategories() -> [Category]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: DataService.ArchiveURL.path) as? [Category]
     }
     
-    func getLedgerItemSceneCells() -> [LedgerItemSceneCell] {
-        return ledgerItemViewControllerCells
+    func addCategory(category: Category) {
+        _categories.append(category)
+        saveCategories()
     }
     
     func saveCategoryToCategories(category: Category) {
-        categories.append(category)
+        _categories.append(category)
     }
 }

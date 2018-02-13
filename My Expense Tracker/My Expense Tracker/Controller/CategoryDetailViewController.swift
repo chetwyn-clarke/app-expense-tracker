@@ -38,10 +38,16 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         // Update running total and table view with ledger items.
         configureView()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        ledgerEntries.sort { (item1, item2) -> Bool in
+            let date1 = item1.date
+            let date2 = item2.date
+            return date1 > date2
+        }
+        
+        tableView.reloadData()
     }
     
     // MARK: - Table view data source and delegate
@@ -145,6 +151,7 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
             runningTotal.text = String(describing: category.runningTotal)
             print(runningTotal.text as Any)
             ledgerEntries = category.ledgerAmounts
+            
         }
         
         // Configure right bar button item
@@ -193,6 +200,8 @@ extension CategoryDetailViewController: LedgerItemTableViewControllerDelegate {
         category.addLedgerItem(item: ledgerItem)
         
         ledgerEntries = category.ledgerAmounts
+        
+        // TODO: Sorting function needs to go into its own call. Viloating the DRY principle.
         ledgerEntries.sort { (item1, item2) -> Bool in
             let date1 = item1.date
             let date2 = item2.date
@@ -224,7 +233,7 @@ extension CategoryDetailViewController: LedgerItemTableViewControllerDelegate {
             fatalError("No category available.")
         }
         category.ledgerAmounts = ledgerEntries
-        category.calculateRunningTotal(ledgerEntries: ledgerEntries)
+        category.calculateRunningTotal()
         
         // Save the category to disk.
         
@@ -242,7 +251,7 @@ extension CategoryDetailViewController: LedgerItemTableViewControllerDelegate {
 
 extension CategoryDetailViewController: CategoryTransferDelegate {
     
-    func userDidEdit(category: Category) {
+    func userDidCreateOrEdit(category: Category) {
         _ = category
         
         configureView()

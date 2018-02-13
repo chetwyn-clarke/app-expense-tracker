@@ -150,9 +150,7 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
                 fatalError("No delegate set.")
             }
             
-            delegate.userDidEdit(category: category)
-            
-            // TODO: Save category array or use a protocol to send the data back
+            delegate.userDidCreateOrEdit(category: category)
             
             determinePresentingViewControllerAndDismiss()
             

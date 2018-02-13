@@ -8,12 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7312455B20213F6800E3A0D5 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7312455A20213F6800E3A0D5 /* Helpers.swift */; };
-		733510362015372100938EFC /* AddNotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733510352015372100938EFC /* AddNotesCell.swift */; };
-		7335103820153A6700938EFC /* AddItemOrPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7335103720153A6700938EFC /* AddItemOrPriceCell.swift */; };
-		7335103A20153FC900938EFC /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7335103920153FC900938EFC /* DatePickerCell.swift */; };
-		7335103C20153FF800938EFC /* AddDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7335103B20153FF800938EFC /* AddDateCell.swift */; };
-		7335103E2015402000938EFC /* SelectItemTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7335103D2015402000938EFC /* SelectItemTypeCell.swift */; };
-		73351040201541D900938EFC /* LedgerItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7335103F201541D900938EFC /* LedgerItemViewController.swift */; };
 		734110342016109200F66F69 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734110332016109200F66F69 /* RoundedButton.swift */; };
 		734110362016161200F66F69 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734110352016161200F66F69 /* AddCategoryViewController.swift */; };
 		736D45DB2020D2FD007F4C96 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D45DA2020D2FD007F4C96 /* DataService.swift */; };
@@ -52,12 +46,6 @@
 
 /* Begin PBXFileReference section */
 		7312455A20213F6800E3A0D5 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		733510352015372100938EFC /* AddNotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesCell.swift; sourceTree = "<group>"; };
-		7335103720153A6700938EFC /* AddItemOrPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemOrPriceCell.swift; sourceTree = "<group>"; };
-		7335103920153FC900938EFC /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
-		7335103B20153FF800938EFC /* AddDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDateCell.swift; sourceTree = "<group>"; };
-		7335103D2015402000938EFC /* SelectItemTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectItemTypeCell.swift; sourceTree = "<group>"; };
-		7335103F201541D900938EFC /* LedgerItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerItemViewController.swift; sourceTree = "<group>"; };
 		734110332016109200F66F69 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		734110352016161200F66F69 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		736D45DA2020D2FD007F4C96 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
@@ -108,18 +96,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		73351034201536F400938EFC /* Add Item View */ = {
-			isa = PBXGroup;
-			children = (
-				733510352015372100938EFC /* AddNotesCell.swift */,
-				7335103720153A6700938EFC /* AddItemOrPriceCell.swift */,
-				7335103920153FC900938EFC /* DatePickerCell.swift */,
-				7335103B20153FF800938EFC /* AddDateCell.swift */,
-				7335103D2015402000938EFC /* SelectItemTypeCell.swift */,
-			);
-			path = "Add Item View";
-			sourceTree = "<group>";
-		};
 		736D45D92020D286007F4C96 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,7 +110,6 @@
 			children = (
 				73BCD0532014137F00CCF8F5 /* CategoryViewController.swift */,
 				73E20447201509240085FE3B /* CategoryDetailViewController.swift */,
-				7335103F201541D900938EFC /* LedgerItemViewController.swift */,
 				734110352016161200F66F69 /* AddCategoryViewController.swift */,
 				738A1F5D2028E80D00A25DA8 /* LedgerItemTableViewController.swift */,
 			);
@@ -144,7 +119,6 @@
 		73AE7ECE2015030D00F3B9D8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				73351034201536F400938EFC /* Add Item View */,
 				73E20449201511100085FE3B /* CategoryTableViewCell.swift */,
 				734110332016109200F66F69 /* RoundedButton.swift */,
 				7381A70A201B8DB6000C0DA6 /* CategoryDetailTableViewCell.swift */,
@@ -354,17 +328,11 @@
 			files = (
 				73E20448201509240085FE3B /* CategoryDetailViewController.swift in Sources */,
 				73E2044C201511F80085FE3B /* Category.swift in Sources */,
-				73351040201541D900938EFC /* LedgerItemViewController.swift in Sources */,
 				7381A70B201B8DB6000C0DA6 /* CategoryDetailTableViewCell.swift in Sources */,
-				7335103820153A6700938EFC /* AddItemOrPriceCell.swift in Sources */,
-				7335103A20153FC900938EFC /* DatePickerCell.swift in Sources */,
-				7335103E2015402000938EFC /* SelectItemTypeCell.swift in Sources */,
 				736D45DB2020D2FD007F4C96 /* DataService.swift in Sources */,
 				734110362016161200F66F69 /* AddCategoryViewController.swift in Sources */,
-				7335103C20153FF800938EFC /* AddDateCell.swift in Sources */,
 				734110342016109200F66F69 /* RoundedButton.swift in Sources */,
 				73BCD0542014137F00CCF8F5 /* CategoryViewController.swift in Sources */,
-				733510362015372100938EFC /* AddNotesCell.swift in Sources */,
 				738A1F5E2028E80D00A25DA8 /* LedgerItemTableViewController.swift in Sources */,
 				7381A707201B8521000C0DA6 /* LedgerItem.swift in Sources */,
 				73BCD0522014137F00CCF8F5 /* AppDelegate.swift in Sources */,
