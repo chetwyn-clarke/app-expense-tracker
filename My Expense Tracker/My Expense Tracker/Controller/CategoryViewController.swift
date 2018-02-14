@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CategoryViewController: UIViewController {
     
     //MARK: Properties
     
@@ -19,7 +19,8 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = editButtonItem
+        let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(CategoryViewController.editButtonSelected))
+        self.navigationItem.leftBarButtonItem = editButton
         
         // Set tableView delegate and data source
         tableView.dataSource = self
@@ -43,31 +44,7 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     
     //MARK: - Table View Data Source
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
-    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "CategoryViewCell"
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? CategoryTableViewCell else {
-            fatalError("The dequeued cell is not an instance of CategoryTableViewCell")
-        }
-        let category = categories[indexPath.row]
-        //let category = DataService.instance.getCategories()[indexPath.row]
-        cell.configureCell(category: category)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            categories.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
     
     //MARK: Navigation
     
@@ -163,6 +140,16 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
         categories += [category1]
     }
     
+    @objc func editButtonSelected(_ button: UIBarButtonItem) {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        if tableView.isEditing {
+            button.title = "Done"
+        } else {
+            button.title = "Edit"
+        }
+    
+    }
+    
     func initCategories() {
         categories = DataService.instance.getCategories()
     }
@@ -184,13 +171,52 @@ class CategoryViewController: UIViewController, UITableViewDataSource, UITableVi
     
 }
 
+// MARK: - TableView Data Source and Delegate
+
+extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = "CategoryViewCell"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? CategoryTableViewCell else {
+            fatalError("The dequeued cell is not an instance of CategoryTableViewCell")
+        }
+        let category = categories[indexPath.row]
+        //let category = DataService.instance.categories[indexPath.row]
+        cell.configureCell(category: category)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            categories.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCategory = DataService.instance.categories[indexPath.row]
+        DataService.instance.selectedCategory = selectedCategory
+    }
+    
+}
+
+// MARK: - CategoryTransferDelegate
+
 extension CategoryViewController: CategoryTransferDelegate {
+    
     func userDidCreateOrEdit(category: Category) {
         let newIndexPath = IndexPath(row: categories.count, section: 0)
         categories.append(category)
         tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
-    
     
 }
 

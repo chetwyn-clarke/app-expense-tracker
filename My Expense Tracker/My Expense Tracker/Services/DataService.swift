@@ -17,18 +17,14 @@ class DataService {
     
     // MARK: - Properties
 
-    private var _categories = [Category]()
-    
-    var categories: [Category] {
-        return _categories
-    }
+    var categories = [Category]()
+    var selectedCategory: Category?
     
     // MARK: - Archiving Paths
     
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     
     static let ArchiveURL = DocumentsDirectory.appendingPathComponent("categories")
-    
     
     // MARK: - Functions
     
@@ -37,7 +33,7 @@ class DataService {
     }
     
     func saveCategories() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(_categories, toFile: DataService.ArchiveURL.path)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(categories, toFile: DataService.ArchiveURL.path)
         if isSuccessfulSave {
             os_log("Categories successfully saved.", log: .default, type: .debug)
         } else {
@@ -45,16 +41,23 @@ class DataService {
         }
     }
     
-    func loadCategories() -> [Category]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: DataService.ArchiveURL.path) as? [Category]
+    func loadCategories() {
+        let savedCategories = NSKeyedUnarchiver.unarchiveObject(withFile: DataService.ArchiveURL.path) as? [Category]
+        if let categories = savedCategories {
+            self.categories = categories
+        } else {
+            print("No categories have been saved.")
+        }
+        //return NSKeyedUnarchiver.unarchiveObject(withFile: DataService.ArchiveURL.path) as? [Category]
     }
     
     func addCategory(category: Category) {
-        _categories.append(category)
+        categories.append(category)
         saveCategories()
+        loadCategories()
     }
     
     func saveCategoryToCategories(category: Category) {
-        _categories.append(category)
+        categories.append(category)
     }
 }
