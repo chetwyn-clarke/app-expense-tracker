@@ -28,22 +28,27 @@ class CategoryViewController: UIViewController {
         
         // Load Data
         
-        if categories.isEmpty {
+        if DataService.instance.categories.isEmpty {
             loadSampleData()
+        } else {
+            DataService.instance.loadCategories()
+            categories = DataService.instance.categories
         }
         
-        
-        //initCategories()
-        
+        print("View Loaded")
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        if !DataService.instance.categories.isEmpty {
+            categories = DataService.instance.categories
+        } 
+        
         tableView.reloadData()
+        
+        print("View appeared")
     }
-    
-    //MARK: - Table View Data Source
-    
     
     
     //MARK: Navigation
@@ -84,7 +89,7 @@ class CategoryViewController: UIViewController {
                 fatalError("Unexpected destination: \(String(describing: segue.destination))")
             }
             
-            receivingViewController.delegate = self
+            //receivingViewController.delegate = self
             receivingViewController.navigationItem.title = "Add Category"
             
         default:
@@ -155,7 +160,7 @@ class CategoryViewController: UIViewController {
     }
     
     //MARK: - Actions
-    
+    /*
     @IBAction func unwindToCategoriesList(sender: UIStoryboardSegue) {
         
         // Try to add category from sending view controller to the categoris array in the receiving view controller.
@@ -168,6 +173,7 @@ class CategoryViewController: UIViewController {
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
     }
+    */
     
 }
 
@@ -202,8 +208,14 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCategory = DataService.instance.categories[indexPath.row]
-        DataService.instance.selectedCategory = selectedCategory
+        
+        if DataService.instance.categories.isEmpty {
+            
+        } else {
+            let selectedCategory = DataService.instance.categories[indexPath.row]
+            DataService.instance.selectedCategory = selectedCategory
+        }
+        
     }
     
 }

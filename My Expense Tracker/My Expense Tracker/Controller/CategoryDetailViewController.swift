@@ -28,14 +28,10 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // navigationItem.rightBarButtonItem
-        
         
         tableView.dataSource = self
         tableView.delegate = self
         
-        // Update running total and table view with ledger items.
         configureView()
     }
     
@@ -53,7 +49,12 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
     // MARK: - Table view data source and delegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ledgerEntries.count
+        
+        guard let numberOfRows = DataService.instance.selectedCategory?.ledgerAmounts.count else {
+            fatalError("No category selected")
+        }
+        return numberOfRows
+        //return ledgerEntries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,9 +65,15 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
             fatalError("The dequeued cell is not an instance of CategoryDetailTableViewCell")
         }
         
-        let ledgerEntry = ledgerEntries[indexPath.row]
-        cell.configureCell(ledgerItem: ledgerEntry)
+        guard let ledgerItem = DataService.instance.selectedCategory?.ledgerAmounts[indexPath.row] else {
+            fatalError("Unable to find category or ledger amounts.")
+        }
+        cell.configureCell(ledgerItem: ledgerItem)
         return cell
+        
+//        let ledgerEntry = ledgerEntries[indexPath.row]
+//        cell.configureCell(ledgerItem: ledgerEntry)
+//        return cell
         
     }
     
@@ -87,8 +94,8 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
             guard let presentCategory = self.category else {
                 fatalError("No category selected.")
             }
-            destinationViewController.category = presentCategory
-            destinationViewController.delegate = self
+            //destinationViewController.category = presentCategory
+            //destinationViewController.delegate = self
             
         case "toAddItem":
             
@@ -144,15 +151,22 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         runningTotal.adjustsFontSizeToFitWidth = true
         runningTotal.minimumScaleFactor = 50 / 150
         
-        if let category = category {
-            navigationItem.title = category.name
-            category.calculateRunningTotal()
-           
-            runningTotal.text = String(describing: category.runningTotal)
-            print(runningTotal.text as Any)
-            ledgerEntries = category.ledgerAmounts
-            
+        guard let category = DataService.instance.selectedCategory else {
+            fatalError("No category selected")
         }
+        
+        navigationItem.title = category.name
+        runningTotal.text = String(describing: category.runningTotal)
+        ledgerEntries = category.ledgerAmounts
+        
+//        if let category = category {
+//            navigationItem.title = category.name
+//
+//            runningTotal.text = String(describing: category.runningTotal)
+//            print(runningTotal.text as Any)
+//            ledgerEntries = category.ledgerAmounts
+//
+//        }
         
         // Configure right bar button item
         

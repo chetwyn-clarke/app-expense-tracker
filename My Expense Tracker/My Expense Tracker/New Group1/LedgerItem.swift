@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LedgerItem {
+class LedgerItem: NSObject {
     
     //MARK: - Properties
     

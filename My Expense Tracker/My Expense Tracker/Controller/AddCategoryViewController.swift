@@ -20,8 +20,8 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
-    var category: Category?
-    var delegate: CategoryTransferDelegate? = nil
+    //var category: Category?
+    //var delegate: CategoryTransferDelegate? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +30,13 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         startingAmount.delegate = self
         
         // Set up the view if editing a category
-        if let category = category {
-            navigationItem.title = "Edit Category"
-            categoryName.text = category.name
-            startingAmount.text = String(describing: category.startingAmount)
-        }
+//        if let category = category {
+//            navigationItem.title = "Edit Category"
+//            categoryName.text = category.name
+//            startingAmount.text = String(describing: category.startingAmount)
+//        }
+        
+        configureView()
         
         updateSaveButtonStatus()
     }
@@ -61,6 +63,7 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         updateSaveButtonStatus()
     }
     
+    /*
 
     // MARK: - Navigation
 
@@ -75,17 +78,6 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        // Configure the category to be passed to the destination view controller i.e. to the CategoryViewController.
-        
-//        let name = categoryName.text ?? ""
-//        var amount = 0.0
-//        if let amnt = startingAmount.text {
-//            amount = Double(amnt)!
-//        } else {
-//            os_log("No starting amount added.", log: OSLog.default, type: .debug)
-//        }
-//
-//        category = Category(name: name, amount: amount)
         
         // Then pass the category to the view controller and add it to the table.
         
@@ -103,58 +95,102 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         destination.tableView.insertRows(at: [newIndexPath], with: .automatic)
         
     }
+    */
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
-        // Creating a new category
-        
-        if category == nil {
+        if DataService.instance.selectedCategory == nil {
+            
+            // Creating a category
             
             let name = categoryName.text ?? "New Category"
-            var amount = 0.0
-            if let amnt = startingAmount.text {
-                if !amnt.isEmpty {
-                    amount = Double(amnt)!
-                }
-            } else {
-                os_log("No starting amount added.", log: OSLog.default, type: .debug)
-            }
+            let startingAmountText = self.startingAmount.text ?? "0.00"
+            let startingAmount = Double(startingAmountText)
             
-            category = Category(name: name, amount: amount, runningTotal: nil, ledgerAmounts: nil)
+            let category = Category(name: name, amount: startingAmount, runningTotal: nil, ledgerAmounts: nil)
             
-            if let category = category {
-                DataService.instance.saveCategoryToCategories(category: category)
-            }
+            category?.calculateRunningTotal()
             
-            print("Category Count: \(DataService.instance.getCategories().count)")
+            let date = Date()
+            let amount = category?.startingAmount
+            let firstLedgerItem = LedgerItem(type: .income, date: date, description: "Starting Amount", amount: amount!, notes: "")
+            category?.addLedgerItem(item: firstLedgerItem)
+            
+            DataService.instance.addCategory(category: category!)
+            
+            determinePresentingViewControllerAndDismiss()
+            
+        } else {
+            
+            // Editing the selected category
+            
+            let name = categoryName.text ?? "Untitled"
+            let startingAmount = self.startingAmount.text ?? "0.00"
+            
+            DataService.instance.selectedCategory?.name = name
+            DataService.instance.selectedCategory?.startingAmount = Double(startingAmount)!
+            
+            DataService.instance.saveCategories()
             
             determinePresentingViewControllerAndDismiss()
             
         }
         
-        // Editing an existing category
-            
-        else if category != nil {
-            
-            guard let category = category else {
-                fatalError("No category was sent in segue to this view controller.")
-            }
-            
-            let name = categoryName.text ?? "Edited Category"
-            let startAmount = startingAmount.text ?? "0.00"
-            
-            category.name = name
-            category.startingAmount = Double(startAmount)!
-            
-            guard let delegate = delegate else {
-                fatalError("No delegate set.")
-            }
-            
-            delegate.userDidCreateOrEdit(category: category)
-            
-            determinePresentingViewControllerAndDismiss()
-            
-        }
+//        if category == nil {
+//
+//            let name = categoryName.text ?? "New Category"
+//            var amount = 0.0
+//            if let amnt = startingAmount.text {
+//                if !amnt.isEmpty {
+//                    amount = Double(amnt)!
+//                }
+//            } else {
+//                os_log("No starting amount added.", log: OSLog.default, type: .debug)
+//            }
+//
+//            category = Category(name: name, amount: amount, runningTotal: nil, ledgerAmounts: nil)
+//
+//            if let category = category {
+//
+//                category.calculateRunningTotal()
+//
+//                let date = Date()
+//                let firstLedgerItem = LedgerItem(type: .income, date: date, description: "Starting Amount", amount: category.startingAmount, notes: "")
+//                category.addLedgerItem(item: firstLedgerItem)
+//                print("\(category.runningTotal)")
+//
+//                DataService.instance.saveCategoryToCategories(category: category)
+//            }
+//
+//            print("Category Count: \(DataService.instance.getCategories().count)")
+//
+//            determinePresentingViewControllerAndDismiss()
+//
+//        }
+//
+//        // Editing an existing category
+//
+//        else if category != nil {
+//
+//            guard let category = category else {
+//                fatalError("No category was sent in segue to this view controller.")
+//            }
+//
+//            let name = categoryName.text ?? "Edited Category"
+//            let startAmount = startingAmount.text ?? "0.00"
+//
+//            category.name = name
+//            category.startingAmount = Double(startAmount)!
+//
+//            guard let delegate = delegate else {
+//                fatalError("No delegate set.")
+//            }
+//
+//            delegate.userDidCreateOrEdit(category: category)
+//
+//            determinePresentingViewControllerAndDismiss()
+//
+//        }
         
     }
     
@@ -172,7 +208,16 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    // MARK: - Private Functions
+    // MARK: - Functions
+    
+    func configureView() {
+        //If editing a category
+        if DataService.instance.selectedCategory != nil {
+            navigationItem.title = "Edit Category"
+            categoryName.text = DataService.instance.selectedCategory?.name
+            startingAmount.text = String(describing: DataService.instance.selectedCategory?.startingAmount)
+        }
+    }
     
     private func updateSaveButtonStatus() {
         //Disable save button if categoryName text field is empty.
