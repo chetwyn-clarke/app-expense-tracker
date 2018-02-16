@@ -16,7 +16,7 @@ class LedgerItem: NSObject {
     var date: Date
     var itemDescription: String
     var amount: Double
-    var notes: String?
+    var notes: String
     
     // MARK: - Initializer
     
@@ -32,6 +32,40 @@ class LedgerItem: NSObject {
         self.amount = amount
         self.notes = notes ?? ""
         
+    }
+    
+    // MARK: - Decoding from saved files
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        let type = aDecoder.decodeObject(forKey: PropertyKey.type) as? LedgerItemType
+        let date = aDecoder.decodeObject(forKey: PropertyKey.date) as? Date
+        let itemDescription = aDecoder.decodeObject(forKey: PropertyKey.itemDescription) as? String
+        let amount = aDecoder.decodeDouble(forKey: PropertyKey.amount)
+        let notes = aDecoder.decodeObject(forKey: PropertyKey.notes) as? String
+        
+        //TODO: Figure out why type, date and description have to be unwrapped but not amount and notes.
+        
+        self.init(type: type!, date: date!, description: itemDescription!, amount: amount, notes: notes)
+    }
+    
+}
+
+extension LedgerItem: NSCoding {
+    
+    struct PropertyKey {
+        static let type = "type"
+        static let date = "date"
+        static let itemDescription = "item Description"
+        static let amount = "amount"
+        static let notes = "notes"
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(type, forKey: PropertyKey.type)
+        aCoder.encode(date, forKey: PropertyKey.date)
+        aCoder.encode(itemDescription, forKey: PropertyKey.itemDescription)
+        aCoder.encode(amount, forKey: PropertyKey.amount)
+        aCoder.encode(notes, forKey: PropertyKey.notes)
     }
     
 }
