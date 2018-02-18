@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum LedgerItemType: String {
+    case income
+    case expense
+}
+
 class LedgerItem: NSObject {
     
     //MARK: - Properties
@@ -22,9 +27,8 @@ class LedgerItem: NSObject {
     
     init(type: LedgerItemType, date: Date, description: String, amount: Double, notes: String?) {
         
-        self.date = date
-        
         self.type = type
+        self.date = date
         self.itemDescription = description
         
         // No need to change amount depending on whether it is an expense or an item; the Category Class description handles that calculation.
@@ -37,7 +41,7 @@ class LedgerItem: NSObject {
     // MARK: - Decoding from saved files
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let type = aDecoder.decodeObject(forKey: PropertyKey.type) as? LedgerItemType
+        let type = LedgerItemType(rawValue: (aDecoder.decodeObject(forKey: PropertyKey.type) as! String)) ?? .income
         let date = aDecoder.decodeObject(forKey: PropertyKey.date) as? Date
         let itemDescription = aDecoder.decodeObject(forKey: PropertyKey.itemDescription) as? String
         let amount = aDecoder.decodeDouble(forKey: PropertyKey.amount)
@@ -45,7 +49,7 @@ class LedgerItem: NSObject {
         
         //TODO: Figure out why type, date and description have to be unwrapped but not amount and notes.
         
-        self.init(type: type!, date: date!, description: itemDescription!, amount: amount, notes: notes)
+        self.init(type: type, date: date!, description: itemDescription!, amount: amount, notes: notes)
     }
     
 }
@@ -61,16 +65,11 @@ extension LedgerItem: NSCoding {
     }
     
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(type, forKey: PropertyKey.type)
+        aCoder.encode(type.rawValue, forKey: PropertyKey.type)
         aCoder.encode(date, forKey: PropertyKey.date)
         aCoder.encode(itemDescription, forKey: PropertyKey.itemDescription)
         aCoder.encode(amount, forKey: PropertyKey.amount)
         aCoder.encode(notes, forKey: PropertyKey.notes)
     }
     
-}
-
-enum LedgerItemType {
-    case income
-    case expense
 }

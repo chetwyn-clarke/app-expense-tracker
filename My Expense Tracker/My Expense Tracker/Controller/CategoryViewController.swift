@@ -43,7 +43,8 @@ class CategoryViewController: UIViewController {
         
         if !DataService.instance.categories.isEmpty {
             categories = DataService.instance.categories
-        } 
+        }
+        DataService.instance.selectedCategory = nil
         
         tableView.reloadData()
         
@@ -102,7 +103,7 @@ class CategoryViewController: UIViewController {
     
     private func loadSampleData() {
         
-        let categoryName1 = "Allowances"
+        let categoryName1 = "Allowances (Sample)"
         let categoryAmount1: Double = 500
         guard let category1 = Category(name: categoryName1, amount: categoryAmount1, runningTotal: nil, ledgerAmounts: nil) else {
             fatalError("Unable to instantiate category.")
@@ -159,22 +160,6 @@ class CategoryViewController: UIViewController {
         categories = DataService.instance.getCategories()
     }
     
-    //MARK: - Actions
-    /*
-    @IBAction func unwindToCategoriesList(sender: UIStoryboardSegue) {
-        
-        // Try to add category from sending view controller to the categoris array in the receiving view controller.
-        
-        if let sendingViewController = sender.source as? AddCategoryViewController, let category = sendingViewController.category {
-            
-            // Add a new category to the table
-            let newIndexPath = IndexPath(row: categories.count, section: 0)
-            categories.append(category)
-            tableView.insertRows(at: [newIndexPath], with: .automatic)
-        }
-    }
-    */
-    
 }
 
 // MARK: - TableView Data Source and Delegate
@@ -210,12 +195,12 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if DataService.instance.categories.isEmpty {
-            
+            let selectedCategory = categories[indexPath.row]
+            DataService.instance.selectedCategory = selectedCategory
         } else {
             let selectedCategory = DataService.instance.categories[indexPath.row]
             DataService.instance.selectedCategory = selectedCategory
         }
-        
     }
     
 }

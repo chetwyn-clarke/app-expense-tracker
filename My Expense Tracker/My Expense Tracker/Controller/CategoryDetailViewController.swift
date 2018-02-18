@@ -9,7 +9,7 @@
 import UIKit
 import os.log
 
-class CategoryDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CategoryDetailViewController: UIViewController {
     
     //MARK: - Properties
     
@@ -48,34 +48,7 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
     
     // MARK: - Table view data source and delegate
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        guard let numberOfRows = DataService.instance.selectedCategory?.ledgerAmounts.count else {
-            fatalError("No category selected")
-        }
-        return numberOfRows
-        //return ledgerEntries.count
-    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let identifier = "LedgerEntryCell"
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? CategoryDetailTableViewCell else {
-            fatalError("The dequeued cell is not an instance of CategoryDetailTableViewCell")
-        }
-        
-        guard let ledgerItem = DataService.instance.selectedCategory?.ledgerAmounts[indexPath.row] else {
-            fatalError("Unable to find category or ledger amounts.")
-        }
-        cell.configureCell(ledgerItem: ledgerItem)
-        return cell
-        
-//        let ledgerEntry = ledgerEntries[indexPath.row]
-//        cell.configureCell(ledgerItem: ledgerEntry)
-//        return cell
-        
-    }
     
 
     // MARK: - Navigation
@@ -196,6 +169,41 @@ class CategoryDetailViewController: UIViewController, UITableViewDataSource, UIT
         ledgerEntries.append(firstLedgerItem)
         tableView.reloadData()
         runningTotal.text = String(describing: category.runningTotal)
+        
+    }
+    
+}
+
+// MARK: - TableView DataSource and Delegate
+
+extension CategoryDetailViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        guard let numberOfRows = DataService.instance.selectedCategory?.ledgerAmounts.count else {
+            fatalError("No category selected")
+        }
+        return numberOfRows
+        //return ledgerEntries.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let identifier = "LedgerEntryCell"
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? CategoryDetailTableViewCell else {
+            fatalError("The dequeued cell is not an instance of CategoryDetailTableViewCell")
+        }
+        
+        guard let ledgerItem = DataService.instance.selectedCategory?.ledgerAmounts[indexPath.row] else {
+            fatalError("Unable to find category or ledger amounts.")
+        }
+        cell.configureCell(ledgerItem: ledgerItem)
+        return cell
+        
+        //        let ledgerEntry = ledgerEntries[indexPath.row]
+        //        cell.configureCell(ledgerItem: ledgerEntry)
+        //        return cell
         
     }
     

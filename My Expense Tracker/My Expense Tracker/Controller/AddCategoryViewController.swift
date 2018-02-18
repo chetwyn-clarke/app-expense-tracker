@@ -11,8 +11,6 @@ import os.log
 
 class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     
-    // TODO: - Fix unWindSegue such that added category is shown in CategoryVC
-    
     // MARK: - Properties
     
     @IBOutlet weak var categoryName: UITextField!
@@ -211,11 +209,13 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Functions
     
     func configureView() {
+        //TODO: Confirm if checking that DataService.instance.selectedCategory != nil is actually necessary.
+        
         //If editing a category
-        if DataService.instance.selectedCategory != nil {
+        if DataService.instance.selectedCategory != nil, let category = DataService.instance.selectedCategory {
             navigationItem.title = "Edit Category"
-            categoryName.text = DataService.instance.selectedCategory?.name
-            startingAmount.text = String(describing: DataService.instance.selectedCategory?.startingAmount)
+            categoryName.text = category.name
+            startingAmount.text = String(describing: category.startingAmount)
         }
     }
     
