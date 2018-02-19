@@ -107,12 +107,17 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
             
             let category = Category(name: name, amount: startingAmount, runningTotal: nil, ledgerAmounts: nil)
             
+            // Superfluous
             category?.calculateRunningTotal()
+            print("First method running total: \(String(describing: category?.runningTotal))")
             
             let date = Date()
             let amount = category?.startingAmount
-            let firstLedgerItem = LedgerItem(type: .income, date: date, description: "Starting Amount", amount: amount!, notes: "")
+            let firstLedgerItem = LedgerItem(type: .income, date: date, description: startingAmountDescription, amount: amount!, notes: "")
             category?.addLedgerItem(item: firstLedgerItem)
+            
+            category?.newCalculateRunningTotal()
+            print("New method running total: \(String(describing: category?.runningTotal))")
             
             DataService.instance.addCategory(category: category!)
             
@@ -127,6 +132,16 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
             
             DataService.instance.selectedCategory?.name = name
             DataService.instance.selectedCategory?.startingAmount = Double(startingAmount)!
+            
+            if let items = DataService.instance.selectedCategory?.ledgerAmounts {
+                for item in items {
+                    if item.itemDescription == startingAmountDescription {
+                        item.amount = Double(startingAmount)!
+                    }
+                }
+            }
+            print(DataService.instance.selectedCategory?.startingAmount)
+            DataService.instance.selectedCategory?.newCalculateRunningTotal()
             
             DataService.instance.saveCategories()
             

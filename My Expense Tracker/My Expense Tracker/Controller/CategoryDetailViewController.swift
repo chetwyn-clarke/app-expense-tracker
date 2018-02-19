@@ -29,13 +29,26 @@ class CategoryDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let resetButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(clearAllLedgerEntries))
+        resetButton.tintColor = UIColor.red
+        navigationItem.rightBarButtonItem = resetButton
+        
+        runningTotal.adjustsFontSizeToFitWidth = true
+        runningTotal.minimumScaleFactor = 50 / 150
+        
         tableView.dataSource = self
         tableView.delegate = self
         
         configureView()
+        
+        print("Category Detail View Loaded")
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        //configureView()
+        
+        configureView()
         
         ledgerEntries.sort { (item1, item2) -> Bool in
             let date1 = item1.date
@@ -44,6 +57,8 @@ class CategoryDetailViewController: UIViewController {
         }
         
         tableView.reloadData()
+        
+        print("Category Detail View Appeared.")
     }
     
     // MARK: - Table view data source and delegate
@@ -121,15 +136,13 @@ class CategoryDetailViewController: UIViewController {
     
     func configureView() {
         
-        runningTotal.adjustsFontSizeToFitWidth = true
-        runningTotal.minimumScaleFactor = 50 / 150
-        
         guard let category = DataService.instance.selectedCategory else {
             fatalError("No category selected")
         }
         
         navigationItem.title = category.name
         runningTotal.text = String(describing: category.runningTotal)
+        //runningTotal.text = String(describing: DataService.instance.selectedCategory?.runningTotal)
         ledgerEntries = category.ledgerAmounts
         
 //        if let category = category {
@@ -143,9 +156,7 @@ class CategoryDetailViewController: UIViewController {
         
         // Configure right bar button item
         
-        let resetButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(clearAllLedgerEntries))
-        resetButton.tintColor = UIColor.red
-        navigationItem.rightBarButtonItem = resetButton
+        
         
         
     }

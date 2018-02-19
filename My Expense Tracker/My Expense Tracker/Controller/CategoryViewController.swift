@@ -200,6 +200,7 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             let selectedCategory = DataService.instance.categories[indexPath.row]
             DataService.instance.selectedCategory = selectedCategory
+            DataService.instance.indexPathForSelectedCategory = tableView.indexPathForSelectedRow
         }
     }
     

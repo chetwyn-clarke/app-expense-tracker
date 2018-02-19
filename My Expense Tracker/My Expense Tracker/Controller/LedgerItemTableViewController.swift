@@ -61,6 +61,8 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         }
         
     }
+    
+    
 
     
     // MARK: - Text field delegate
@@ -111,6 +113,15 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
             itemDescription.text = item.itemDescription
             price.text = String(describing: item.amount)
             notes.text = item.notes
+            
+            // If ledgerItem is item with starting amount, then only let user be able to edit the notes until you figure out how to let them be able to set everything else and have the starting amount update, etc.
+            
+            if item.itemDescription == startingAmountDescription {
+                segmentedControl.isEnabled = false
+                datePicker.isEnabled = false
+                itemDescription.isEnabled = false
+                price.isEnabled = false
+            }
             
         } else {
             

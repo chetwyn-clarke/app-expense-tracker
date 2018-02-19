@@ -68,8 +68,7 @@ class Category: NSObject, NSCoding {
         
         if ledgerAmounts.isEmpty {
             runningTotal = Int(startingAmount)
-        }
-        else {
+        } else {
             var sumOfLedgerEntries = 0.0
             
             for item in ledgerAmounts {
@@ -88,6 +87,29 @@ class Category: NSObject, NSCoding {
             
             //TODO: Run a unit test for this function.
             
+        }
+    }
+    
+    func newCalculateRunningTotal() {
+        
+        if ledgerAmounts.isEmpty {
+            runningTotal = Int(startingAmount)
+        } else if !ledgerAmounts.isEmpty {
+            var sumOfLedgerItems: Double = 0
+            
+            for item in ledgerAmounts {
+                var amount: Double = 0
+                if item.type == .income {
+                    amount = item.amount
+                } else if item.type == .expense {
+                    amount = -(item.amount)
+                }
+                sumOfLedgerItems += amount
+            }
+            
+            runningTotal = Int(round(sumOfLedgerItems))
+            
+            //TODO: Run a unit test for this function
         }
     }
     

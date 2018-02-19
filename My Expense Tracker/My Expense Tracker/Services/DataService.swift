@@ -19,6 +19,7 @@ class DataService {
 
     var categories = [Category]()
     var selectedCategory: Category?
+    var indexPathForSelectedCategory: IndexPath?
     
     // MARK: - Archiving Paths
     
@@ -33,6 +34,13 @@ class DataService {
     }
     
     func saveCategories() {
+        
+        /*
+        if let categoryToBeSaved = selectedCategory, let selectedIndexPath = indexPathForSelectedCategory {
+            categories[selectedIndexPath.row] = categoryToBeSaved
+        }
+        */
+        
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(categories, toFile: DataService.ArchiveURL.path)
         if isSuccessfulSave {
             os_log("Categories successfully saved.", log: .default, type: .debug)
