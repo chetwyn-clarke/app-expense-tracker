@@ -33,22 +33,13 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
 
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 3
-        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         switch section {
         case 0:
             return 1
@@ -59,11 +50,7 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         default:
             return 0
         }
-        
     }
-    
-    
-
     
     // MARK: - Text field delegate
     
@@ -73,19 +60,16 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        
         if textField == itemDescription {
             setSaveButtonStatus()
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-    
         if textField == itemDescription {
             setSaveButtonStatus()
         }
     }
-
     
     // MARK: - Functions
     
@@ -242,7 +226,7 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
             
             let item = createItemFromEnteredUserValues()
             
-            // Save category disk, so that it is updated when this VC is dismissed.
+            // Save category disk, so that it is updated when this VC is dismissed.  Done in delegate
             
             guard let delegate = delegate else {
                 fatalError("No delegate set")

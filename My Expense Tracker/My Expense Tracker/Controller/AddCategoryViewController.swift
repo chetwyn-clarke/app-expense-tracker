@@ -121,6 +121,8 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
             
             DataService.instance.addCategory(category: category!)
             
+            //DataService.instance.saveCategories()
+            
             determinePresentingViewControllerAndDismiss()
             
         } else {

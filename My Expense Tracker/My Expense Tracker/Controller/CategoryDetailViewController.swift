@@ -248,6 +248,23 @@ extension CategoryDetailViewController: LedgerItemTableViewControllerDelegate {
         
         tableView.reloadData()
         
+        /*
+        // New structure
+        DataService.instance.selectedCategory?.addLedgerItem(item: ledgerItem)
+        DataService.instance.selectedCategory?.ledgerAmounts.sort(by: { (item1, item2) -> Bool in
+            let date1 = item1.date
+            let date2 = item2.date
+            return date1 > date2
+        })
+        DataService.instance.selectedCategory?.newCalculateRunningTotal()
+        
+        if let category = DataService.instance.selectedCategory {
+            runningTotal.text = String(describing: category.runningTotal)
+        }
+        
+        tableView.reloadData()
+         */
+        
     }
     
     func userDidEdit(ledgerItem: LedgerItem) {
