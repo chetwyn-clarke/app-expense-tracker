@@ -11,6 +11,8 @@ import os.log
 
 class DataService {
     
+    // TODO: Make properties private, etc.
+    
     // MARK: - Initialisation
     
     static let instance = DataService()
@@ -35,11 +37,10 @@ class DataService {
     
     func saveCategories() {
         
-        /*
         if let categoryToBeSaved = selectedCategory, let selectedIndexPath = indexPathForSelectedCategory {
             categories[selectedIndexPath.row] = categoryToBeSaved
+            print("Selected category and index path available.")
         }
-        */
         
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(categories, toFile: DataService.ArchiveURL.path)
         if isSuccessfulSave {
