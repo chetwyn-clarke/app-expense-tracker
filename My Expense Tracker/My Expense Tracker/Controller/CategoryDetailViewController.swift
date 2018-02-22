@@ -93,31 +93,21 @@ class CategoryDetailViewController: UIViewController {
             receivingViewController.delegate = self
             receivingViewController.navigationItem.title = "Add Item"
             
-            //destinationViewController.initSections()
-            
         case "toShowLedgerItemDetail":
             
             guard let destinationViewController = segue.destination as? LedgerItemTableViewController else {
                 fatalError("Unexpected segue identifier: \(String(describing: segue.identifier))")
             }
-            
             guard let selectedLedgerItemCell = sender as? CategoryDetailTableViewCell else {
                 fatalError("Unexpected sender: \(String(describing: sender))")
             }
-            
             guard let indexPath = tableView.indexPath(for: selectedLedgerItemCell) else {
                 fatalError("The selected cell is not being displayed by the table.")
             }
             
-            let selectedItem = ledgerEntries[indexPath.row]
-            destinationViewController.ledgerItem = selectedItem
-            
-            /*
-             // New implementation
             let selectedItem = DataService.instance.selectedCategory?.ledgerAmounts[indexPath.row]
-            destinationViewController.ledgerItem = selectedItem
-            */
             
+            destinationViewController.ledgerItem = selectedItem
             destinationViewController.delegate = self
             destinationViewController.navigationItem.title = "Edit Item"
             
@@ -143,43 +133,34 @@ class CategoryDetailViewController: UIViewController {
         
         navigationItem.title = category.name
         runningTotal.text = String(describing: category.runningTotal)
-        //runningTotal.text = String(describing: DataService.instance.selectedCategory?.runningTotal)
         ledgerEntries = category.ledgerAmounts
-        
-//        if let category = category {
-//            navigationItem.title = category.name
-//
-//            runningTotal.text = String(describing: category.runningTotal)
-//            print(runningTotal.text as Any)
-//            ledgerEntries = category.ledgerAmounts
-//
-//        }
-        
-        // Configure right bar button item
-        
-        
-        
-        
     }
     
     @objc private func clearAllLedgerEntries() {
         
-        // Clear all entries in the ledger.
-        
-        ledgerEntries.removeAll()
-        
         // Reset running total to Category starting amount, and add ledger item with starting amount.
         
-        guard let category = category else {
+        guard let category = DataService.instance.selectedCategory else {
             fatalError("No category available.")
         }
-        category.calculateRunningTotal(ledgerEntries: ledgerEntries)
+        guard let categoryIndexPath = DataService.instance.indexPathForSelectedCategory else {
+            fatalError("Unable to find IndexPath for selected category.")
+        }
         
         // Set date to the date you are resetting the total
         let date = Date()
         let firstLedgerItem = LedgerItem(type: .income, date: date, description: "Starting Amount", amount: category.startingAmount, notes: "")
-        ledgerEntries.append(firstLedgerItem)
+        
+        category.ledgerAmounts.removeAll()
+        category.ledgerAmounts.append(firstLedgerItem)
+        category.newCalculateRunningTotal()
+        
+        DataService.instance.selectedCategory = category
+        DataService.instance.categories[categoryIndexPath.row] = DataService.instance.selectedCategory!
+        //DataService.instance.saveCategories()
+        
         tableView.reloadData()
+        
         runningTotal.text = String(describing: category.runningTotal)
         
     }
@@ -196,7 +177,6 @@ extension CategoryDetailViewController: UITableViewDataSource, UITableViewDelega
             fatalError("No category selected")
         }
         return numberOfRows
-        //return ledgerEntries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -272,8 +252,6 @@ extension CategoryDetailViewController: LedgerItemTableViewControllerDelegate {
         DataService.instance.selectedCategory = category
         DataService.instance.categories[categoryIndexPath.row] = DataService.instance.selectedCategory!
         //DataService.instance.saveCategories()
-        
-        //tableView.reloadRows(at: [selectedIndexPath], with: .none)
         
         tableView.reloadData()
         
