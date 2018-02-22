@@ -60,11 +60,6 @@ class CategoryDetailViewController: UIViewController {
         
         print("Category Detail View Appeared.")
     }
-    
-    // MARK: - Table view data source and delegate
-    
-    
-    
 
     // MARK: - Navigation
 
@@ -116,6 +111,12 @@ class CategoryDetailViewController: UIViewController {
             
             let selectedItem = ledgerEntries[indexPath.row]
             destinationViewController.ledgerItem = selectedItem
+            
+            /*
+             // New implementation
+            let selectedItem = DataService.instance.selectedCategory?.ledgerAmounts[indexPath.row]
+            destinationViewController.ledgerItem = selectedItem
+            */
             
             destinationViewController.delegate = self
             destinationViewController.navigationItem.title = "Edit Item"
@@ -205,19 +206,12 @@ extension CategoryDetailViewController: UITableViewDataSource, UITableViewDelega
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? CategoryDetailTableViewCell else {
             fatalError("The dequeued cell is not an instance of CategoryDetailTableViewCell")
         }
-        
         guard let ledgerItem = DataService.instance.selectedCategory?.ledgerAmounts[indexPath.row] else {
             fatalError("Unable to find category or ledger amounts.")
         }
         cell.configureCell(ledgerItem: ledgerItem)
         return cell
-        
-        //        let ledgerEntry = ledgerEntries[indexPath.row]
-        //        cell.configureCell(ledgerItem: ledgerEntry)
-        //        return cell
-        
     }
-    
 }
 
 // MARK: - LedgerItemTableViewControllerDelegate
@@ -226,44 +220,28 @@ extension CategoryDetailViewController: LedgerItemTableViewControllerDelegate {
     
     func userDidCreate(ledgerItem: LedgerItem) {
         
-        guard let category = category else {
-            fatalError("No category available.")
-        }
-        
-        category.addLedgerItem(item: ledgerItem)
-        
-        ledgerEntries = category.ledgerAmounts
         
         // TODO: Sorting function needs to go into its own call. Viloating the DRY principle.
-        ledgerEntries.sort { (item1, item2) -> Bool in
+    
+        guard let category = DataService.instance.selectedCategory else { fatalError("Selected Category not available") }
+        guard let categoryIndexPath = DataService.instance.indexPathForSelectedCategory else {
+            fatalError("Unable to find IndexPath for selected category.")
+        }
+        category.addLedgerItem(item: ledgerItem)
+        category.ledgerAmounts.sort { (item1, item2) -> Bool in
             let date1 = item1.date
             let date2 = item2.date
             return date1 > date2
         }
-        
-        category.calculateRunningTotal()
+        category.newCalculateRunningTotal()
         runningTotal.text = String(describing: category.runningTotal)
-        
-        // TODO: Save category to disk beore reloading data.
-        
-        tableView.reloadData()
-        
-        /*
-        // New structure
-        DataService.instance.selectedCategory?.addLedgerItem(item: ledgerItem)
-        DataService.instance.selectedCategory?.ledgerAmounts.sort(by: { (item1, item2) -> Bool in
-            let date1 = item1.date
-            let date2 = item2.date
-            return date1 > date2
-        })
-        DataService.instance.selectedCategory?.newCalculateRunningTotal()
-        
-        if let category = DataService.instance.selectedCategory {
-            runningTotal.text = String(describing: category.runningTotal)
-        }
+         
+        DataService.instance.selectedCategory = category
+        DataService.instance.categories[categoryIndexPath.row] = category
+        //DataService.instance.saveCategories()
         
         tableView.reloadData()
-         */
+        //runningTotal.text = String(describing: category.runningTotal)
         
     }
     
@@ -276,20 +254,28 @@ extension CategoryDetailViewController: LedgerItemTableViewControllerDelegate {
         guard let selectedIndexPath = tableView.indexPathForSelectedRow else {
             fatalError("The LedgerItem selected has no indexPath.")
         }
-        
-        ledgerEntries[selectedIndexPath.row] = ledgerItem
-        
-        guard let category = category else {
+        guard let category = DataService.instance.selectedCategory else {
             fatalError("No category available.")
         }
-        category.ledgerAmounts = ledgerEntries
-        category.calculateRunningTotal()
+        guard let categoryIndexPath = DataService.instance.indexPathForSelectedCategory else {
+            fatalError("Unable to find IndexPath for selected category.")
+        }
         
-        // Save the category to disk.
+        category.ledgerAmounts[selectedIndexPath.row] = ledgerItem
+        category.ledgerAmounts.sort { (item1, item2) -> Bool in
+            let date1 = item1.date
+            let date2 = item2.date
+            return date1 > date2
+        }
+        category.newCalculateRunningTotal()
         
-        // TODO: Change the category.calculateRunningTotal so that it uses its own ledgerAmounts category instead of having to pass in an argument. It should then return a string, which you use to set the UILabel here.
+        DataService.instance.selectedCategory = category
+        DataService.instance.categories[categoryIndexPath.row] = DataService.instance.selectedCategory!
+        //DataService.instance.saveCategories()
         
-        tableView.reloadRows(at: [selectedIndexPath], with: .none)
+        //tableView.reloadRows(at: [selectedIndexPath], with: .none)
+        
+        tableView.reloadData()
         
         runningTotal.text = String(describing: category.runningTotal)
         

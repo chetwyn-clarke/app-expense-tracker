@@ -28,12 +28,14 @@ class CategoryViewController: UIViewController {
         
         // Load Data
         
-        if DataService.instance.categories.isEmpty {
-            loadSampleData()
-        } else {
-            DataService.instance.loadCategories()
-            categories = DataService.instance.categories
-        }
+        DataService.instance.loadCategories()
+        
+//        if DataService.instance.categories.isEmpty {
+//            loadSampleData()
+//        } else {
+//            DataService.instance.loadCategories()
+//            categories = DataService.instance.categories
+//        }
         
         print("View Loaded")
         
@@ -166,6 +168,8 @@ class CategoryViewController: UIViewController {
 
 extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
     
+    // TODO: Change function calls to load data from Data Service instead of using category variable in this file.
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
@@ -185,6 +189,10 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
         if editingStyle == .delete {
             categories.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            DataService.instance.categories = categories
+            DataService.instance.saveCategories()
+            DataService.instance.loadCategories()
+            tableView.reloadData()
         }
     }
     
