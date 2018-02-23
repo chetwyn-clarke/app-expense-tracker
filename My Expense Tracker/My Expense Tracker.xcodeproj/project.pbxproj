@@ -24,7 +24,6 @@
 		73E20448201509240085FE3B /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E20447201509240085FE3B /* CategoryDetailViewController.swift */; };
 		73E2044A201511100085FE3B /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E20449201511100085FE3B /* CategoryTableViewCell.swift */; };
 		73E2044C201511F80085FE3B /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2044B201511F80085FE3B /* Category.swift */; };
-		73F815AC20211ED600590E7B /* LedgerItemSceneConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F815AB20211ED600590E7B /* LedgerItemSceneConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +67,6 @@
 		73E20447201509240085FE3B /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
 		73E20449201511100085FE3B /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		73E2044B201511F80085FE3B /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		73F815AB20211ED600590E7B /* LedgerItemSceneConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerItemSceneConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +130,6 @@
 			children = (
 				73E2044B201511F80085FE3B /* Category.swift */,
 				7381A706201B8521000C0DA6 /* LedgerItem.swift */,
-				73F815AB20211ED600590E7B /* LedgerItemSceneConfiguration.swift */,
 			);
 			name = Model;
 			path = "New Group1";
@@ -337,7 +334,6 @@
 				7381A707201B8521000C0DA6 /* LedgerItem.swift in Sources */,
 				73BCD0522014137F00CCF8F5 /* AppDelegate.swift in Sources */,
 				73E2044A201511100085FE3B /* CategoryTableViewCell.swift in Sources */,
-				73F815AC20211ED600590E7B /* LedgerItemSceneConfiguration.swift in Sources */,
 				7312455B20213F6800E3A0D5 /* Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

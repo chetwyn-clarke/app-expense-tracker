@@ -16,15 +16,7 @@ class CategoryDetailViewController: UIViewController {
     @IBOutlet weak var runningTotal: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    /*
-     This value is passed by CategoryViewController in 'prepare(for:sender:)
-     */
-    var category: Category?
-    
-    /*
-     This value is passed by LedgerItemTableViewController in delegate functiions
-     */
-    var ledgerEntries = [LedgerItem]()
+    // MARK: - View configuration
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,30 +32,17 @@ class CategoryDetailViewController: UIViewController {
         tableView.delegate = self
         
         configureView()
-        
         print("Category Detail View Loaded")
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        //configureView()
-        
         configureView()
-        
-        ledgerEntries.sort { (item1, item2) -> Bool in
-            let date1 = item1.date
-            let date2 = item2.date
-            return date1 > date2
-        }
-        
         tableView.reloadData()
-        
         print("Category Detail View Appeared.")
     }
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
@@ -71,25 +50,16 @@ class CategoryDetailViewController: UIViewController {
             
         case "modifyCategory":
             
-            guard let destinationViewController = segue.destination as? AddCategoryViewController else {
-                fatalError("Unexpected destination: \(String(describing: segue.destination))")
-            }
-            guard let presentCategory = self.category else {
-                fatalError("No category selected.")
-            }
-            //destinationViewController.category = presentCategory
-            //destinationViewController.delegate = self
+            print("\(String(describing: segue.identifier)) selected.")
             
         case "toAddItem":
             
             guard let destinationViewController = segue.destination as? UINavigationController else {
                 fatalError("Unexpected destination: \(String(describing: segue.destination))")
             }
-            
             guard let receivingViewController = destinationViewController.topViewController as? LedgerItemTableViewController else {
                 fatalError("Unexpected destination: \(String(describing: segue.destination))")
             }
-            
             receivingViewController.delegate = self
             receivingViewController.navigationItem.title = "Add Item"
             
@@ -116,13 +86,6 @@ class CategoryDetailViewController: UIViewController {
         }
     }
     
-    //MARK: - Actions
-    
-    @IBAction func unWindToCategoryDetail(sender: UIStoryboardSegue) {
-        
-    }
-        
-    
     // MARK: - Functions
     
     func configureView() {
@@ -133,7 +96,12 @@ class CategoryDetailViewController: UIViewController {
         
         navigationItem.title = category.name
         runningTotal.text = String(describing: category.runningTotal)
-        ledgerEntries = category.ledgerAmounts
+        
+        category.ledgerAmounts.sort { (item1, item2) -> Bool in
+            let date1 = item1.date
+            let date2 = item2.date
+            return date1 > date2
+        }
     }
     
     @objc private func clearAllLedgerEntries() {
@@ -153,11 +121,11 @@ class CategoryDetailViewController: UIViewController {
         
         category.ledgerAmounts.removeAll()
         category.ledgerAmounts.append(firstLedgerItem)
-        category.newCalculateRunningTotal()
+        category.calculateRunningTotal()
         
         DataService.instance.selectedCategory = category
         DataService.instance.categories[categoryIndexPath.row] = DataService.instance.selectedCategory!
-        //DataService.instance.saveCategories()
+        DataService.instance.saveCategories()
         
         tableView.reloadData()
         
@@ -213,15 +181,15 @@ extension CategoryDetailViewController: LedgerItemTableViewControllerDelegate {
             let date2 = item2.date
             return date1 > date2
         }
-        category.newCalculateRunningTotal()
-        runningTotal.text = String(describing: category.runningTotal)
+        category.calculateRunningTotal()
+        //runningTotal.text = String(describing: category.runningTotal)
          
         DataService.instance.selectedCategory = category
         DataService.instance.categories[categoryIndexPath.row] = category
-        //DataService.instance.saveCategories()
+        DataService.instance.saveCategories()
         
         tableView.reloadData()
-        //runningTotal.text = String(describing: category.runningTotal)
+        runningTotal.text = String(describing: category.runningTotal)
         
     }
     
@@ -247,28 +215,15 @@ extension CategoryDetailViewController: LedgerItemTableViewControllerDelegate {
             let date2 = item2.date
             return date1 > date2
         }
-        category.newCalculateRunningTotal()
+        category.calculateRunningTotal()
         
         DataService.instance.selectedCategory = category
         DataService.instance.categories[categoryIndexPath.row] = DataService.instance.selectedCategory!
-        //DataService.instance.saveCategories()
+        DataService.instance.saveCategories()
         
         tableView.reloadData()
-        
         runningTotal.text = String(describing: category.runningTotal)
-        
     }
     
 }
 
-// MARK: - CategoryTransferDelegate
-
-extension CategoryDetailViewController: CategoryTransferDelegate {
-    
-    func userDidCreateOrEdit(category: Category) {
-        _ = category
-        
-        configureView()
-    }
-    
-}

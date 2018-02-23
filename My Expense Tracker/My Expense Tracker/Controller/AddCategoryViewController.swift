@@ -18,8 +18,7 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
-    //var category: Category?
-    //var delegate: CategoryTransferDelegate? = nil
+    // MARK: - View configuration
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,39 +48,7 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         updateSaveButtonStatus()
     }
     
-    /*
-
-    // MARK: - Navigation
-
-    // Configure the destination view controller before presenting it.
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        
-        // Configure the destination view controller only when the save button is pressed.
-        
-        guard let button = sender as? UIBarButtonItem, button == saveButton else {
-            os_log("The save button was not pressed, cancelling.", log: OSLog.default, type: .debug)
-            return
-        }
-        
-        
-        // Then pass the category to the view controller and add it to the table.
-        
-        guard let destination = segue.destination as? CategoryViewController else {
-            fatalError("Unable to find CategoryViewController.")
-        }
-        
-        guard let category = category else {
-            fatalError("Unable to get category from AddCategoryVC")
-        }
-        
-        
-        let newIndexPath = IndexPath(row: destination.categories.count, section: 0)
-        destination.categories.append(category)
-        destination.tableView.insertRows(at: [newIndexPath], with: .automatic)
-        
-    }
-    */
+    // MARK: - Actions
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
@@ -95,21 +62,17 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
             
             let category = Category(name: name, amount: startingAmount, runningTotal: nil, ledgerAmounts: nil)
             
-            // Superfluous
-            category?.calculateRunningTotal()
-            print("First method running total: \(String(describing: category?.runningTotal))")
-            
             let date = Date()
             let amount = category?.startingAmount
             let firstLedgerItem = LedgerItem(type: .income, date: date, description: startingAmountDescription, amount: amount!, notes: "")
-            category?.addLedgerItem(item: firstLedgerItem)
             
-            category?.newCalculateRunningTotal()
-            print("New method running total: \(String(describing: category?.runningTotal))")
+            category?.addLedgerItem(item: firstLedgerItem)
+            category?.calculateRunningTotal()
+            
+            print("Running total: \(String(describing: category?.runningTotal))")
             
             DataService.instance.addCategory(category: category!)
-            
-            //DataService.instance.saveCategories()
+            DataService.instance.saveCategories()
             
             determinePresentingViewControllerAndDismiss()
             
@@ -130,28 +93,22 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
             }
-            DataService.instance.selectedCategory?.newCalculateRunningTotal()
             
+            DataService.instance.selectedCategory?.calculateRunningTotal()
             DataService.instance.saveCategories()
             
             determinePresentingViewControllerAndDismiss()
-            
         }
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        
         determinePresentingViewControllerAndDismiss()
-        
     }
-    
-    // MARK: - Actions
     
     @IBAction func removeKeyboardFromView(_ sender: UITapGestureRecognizer) {
         categoryName.resignFirstResponder()
         startingAmount.resignFirstResponder()
     }
-    
     
     // MARK: - Functions
     
@@ -187,7 +144,6 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
         else {
             fatalError("The Add / Edit Category view controller is not in a navigation controller. ")
         }
-        
     }
 
 }

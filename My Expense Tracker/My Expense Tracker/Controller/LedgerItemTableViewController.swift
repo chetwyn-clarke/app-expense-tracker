@@ -23,14 +23,11 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     var ledgerItem: LedgerItem?
     var delegate: LedgerItemTableViewControllerDelegate? = nil
     
-    
     // MARK: - View set up
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureView()
-
     }
 
     // MARK: - Table view data source
@@ -119,7 +116,6 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         }
         
         setSaveButtonStatus()
-        
         configureDatePicker()
     }
     
@@ -182,7 +178,6 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         let item = LedgerItem(type: type, date: date, description: description, amount: amount, notes: notes)
         
         return item
-        
     }
     
     
@@ -193,7 +188,6 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         price.resignFirstResponder()
         notes.resignFirstResponder()
     }
-    
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         
@@ -210,7 +204,6 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         } else {
             fatalError("LedgerItemTableViewController is not in a navigation controller.")
         }
-        
     }
     
     
@@ -226,15 +219,12 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
             
             let item = createItemFromEnteredUserValues()
             
-            // Save category disk, so that it is updated when this VC is dismissed.  Done in delegate
-            
             guard let delegate = delegate else {
                 fatalError("No delegate set")
             }
+            
             delegate.userDidCreate(ledgerItem: item)
-            
             dismiss(animated: true, completion: nil)
-            
         }
         
         // Editing an existing LedgerItem
@@ -248,11 +238,8 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
             }
             
             delegate.userDidEdit(ledgerItem: item)
-            
             navigationController?.popViewController(animated: true)
-            
         }
-        
     }
 
 }

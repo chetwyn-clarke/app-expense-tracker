@@ -39,7 +39,7 @@ class DataService {
         
         if let categoryToBeSaved = selectedCategory, let selectedIndexPath = indexPathForSelectedCategory {
             categories[selectedIndexPath.row] = categoryToBeSaved
-            print("Selected category and index path available.")
+            os_log("Selected category updated.", log: .default, type: .debug)
         }
         
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(categories, toFile: DataService.ArchiveURL.path)
@@ -57,7 +57,7 @@ class DataService {
             print("Categories successfully loaded.")
         } else {
             print("No categories have been saved.")
-            loadSampleData()
+            //loadSampleData()
         }
         
         if categories.isEmpty {
@@ -69,10 +69,6 @@ class DataService {
         categories.append(category)
         saveCategories()
         loadCategories()
-    }
-    
-    func saveCategoryToCategories(category: Category) {
-        categories.append(category)
     }
     
     private func loadSampleData() {
@@ -119,7 +115,7 @@ class DataService {
             return date1 > date2
         }
         
-        category1.newCalculateRunningTotal()
+        category1.calculateRunningTotal()
         
         categories += [category1]
     }
