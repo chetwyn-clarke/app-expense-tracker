@@ -27,7 +27,7 @@ class CategoryDetailTableViewCell: UITableViewCell {
         date.text = dateFormatter.string(from: ledgerItem.date)
             
         itemDescription.text = ledgerItem.itemDescription
-        amount.text = String(ledgerItem.amount)
+        amount.text = ledgerItem.amount.roundedString
     }
 
     override func awakeFromNib() {
@@ -41,4 +41,10 @@ class CategoryDetailTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+}
+
+extension Double {
+    var roundedString: String {
+        return String(format: "%.2f", self)
+    }
 }
