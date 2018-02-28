@@ -76,6 +76,9 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         price.delegate = self
         notes.delegate = self
         
+        itemDescription.autocapitalizationType = .sentences
+        notes.autocapitalizationType = .sentences
+        
         if let item = ledgerItem {
             
             // Set up segmented control

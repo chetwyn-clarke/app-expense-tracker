@@ -113,6 +113,8 @@ class AddCategoryViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Functions
     
     func configureView() {
+        
+        categoryName.autocapitalizationType = .sentences
         //TODO: Confirm if checking that DataService.instance.selectedCategory != nil is actually necessary.
         
         //If editing a category
