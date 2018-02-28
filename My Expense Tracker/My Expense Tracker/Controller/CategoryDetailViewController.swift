@@ -11,6 +11,8 @@ import os.log
 
 class CategoryDetailViewController: UIViewController {
     
+    //TODO: - The following functions violate the DRY principle - clean them: clearAllLedgerEntries(), commit editingStyle, userDidCreate(ledgerItem:), and userDidEdit(ledgerItem:).
+    
     //MARK: - Properties
     
     @IBOutlet weak var runningTotal: UILabel!
@@ -160,6 +162,39 @@ extension CategoryDetailViewController: UITableViewDataSource, UITableViewDelega
         cell.configureCell(ledgerItem: ledgerItem)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        guard let category = DataService.instance.selectedCategory else {
+            fatalError("No category available.")
+        }
+        guard let categoryIndexPath = DataService.instance.indexPathForSelectedCategory else {
+            fatalError("Unable to find IndexPath for selected category.")
+        }
+        
+        if editingStyle == .delete {
+            category.ledgerAmounts.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            category.ledgerAmounts.sort { (item1, item2) -> Bool in
+                let date1 = item1.date
+                let date2 = item2.date
+                return date1 > date2
+            }
+            category.calculateRunningTotal()
+            
+            DataService.instance.selectedCategory = category
+            DataService.instance.categories[categoryIndexPath.row] = category
+            DataService.instance.saveCategories()
+            
+            tableView.reloadData()
+            runningTotal.text = String(describing: category.runningTotal)
+        }
+        
+    }
 }
 
 // MARK: - LedgerItemTableViewControllerDelegate
@@ -182,7 +217,6 @@ extension CategoryDetailViewController: LedgerItemTableViewControllerDelegate {
             return date1 > date2
         }
         category.calculateRunningTotal()
-        //runningTotal.text = String(describing: category.runningTotal)
          
         DataService.instance.selectedCategory = category
         DataService.instance.categories[categoryIndexPath.row] = category
