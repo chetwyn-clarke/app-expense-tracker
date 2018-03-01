@@ -23,6 +23,8 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     var ledgerItem: LedgerItem?
     var delegate: LedgerItemTableViewControllerDelegate? = nil
     
+    private var showDatePicker = false
+    
     // MARK: - View set up
     
     override func viewDidLoad() {
@@ -46,6 +48,24 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
             return 3
         default:
             return 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        // IndexPath = [section, row]
+        if indexPath == [1,1] {
+            if showDatePicker == true {
+                return 144
+            } else if showDatePicker == false {
+                return 0
+            }
+        }
+        
+        if indexPath == [2,2] {
+            return 100
+        } else {
+            return 50
         }
     }
     
@@ -138,6 +158,12 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
         self.displayedDate.text = formatDate(date: date)
     }
     
+    private func clearAllKeyboards() {
+        itemDescription.resignFirstResponder()
+        price.resignFirstResponder()
+        notes.resignFirstResponder()
+    }
+    
     func setSaveButtonStatus() {
         let text = itemDescription.text ?? ""
         saveButton.isEnabled = !text.isEmpty
@@ -186,11 +212,20 @@ class LedgerItemTableViewController: UITableViewController, UITextFieldDelegate 
     
     // MARK: - Actions
     
+    // Can't have your own UITapGestureRecognizer if you want didSelectRow to work.
+    
     @IBAction func hideKeyboardOnTap(_ sender: UITapGestureRecognizer) {
-        itemDescription.resignFirstResponder()
-        price.resignFirstResponder()
-        notes.resignFirstResponder()
+        clearAllKeyboards()
     }
+    
+    @IBAction func toggleShowDatePicker(_ sender: UIButton) {
+        showDatePicker = !showDatePicker
+        clearAllKeyboards()
+        
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+    
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         

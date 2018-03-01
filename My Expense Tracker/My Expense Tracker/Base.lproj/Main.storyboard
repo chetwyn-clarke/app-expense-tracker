@@ -354,6 +354,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5tv-Li-N38">
+                                                    <rect key="frame" x="5" y="5" width="365" height="39.5"/>
+                                                    <connections>
+                                                        <action selector="toggleShowDatePicker:" destination="d9w-bZ-ecp" eventType="touchUpInside" id="xWM-ol-35g"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsV-cp-zW3">
                                                     <rect key="frame" x="16" y="13" width="39" height="22"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
@@ -371,12 +377,17 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="5tv-Li-N38" secondAttribute="bottom" constant="5" id="2mu-eZ-ywe"/>
+                                                <constraint firstItem="5tv-Li-N38" firstAttribute="leading" secondItem="d5H-nX-Afz" secondAttribute="leading" constant="5" id="6Jk-Ed-y1Q"/>
                                                 <constraint firstItem="CmC-Lk-Wd4" firstAttribute="centerY" secondItem="d5H-nX-Afz" secondAttribute="centerY" id="CP6-vT-Ddf"/>
                                                 <constraint firstItem="gsV-cp-zW3" firstAttribute="centerY" secondItem="d5H-nX-Afz" secondAttribute="centerY" id="KeI-kW-PHy"/>
+                                                <constraint firstAttribute="trailing" secondItem="5tv-Li-N38" secondAttribute="trailing" constant="5" id="OQZ-O1-uvI"/>
+                                                <constraint firstItem="5tv-Li-N38" firstAttribute="top" secondItem="d5H-nX-Afz" secondAttribute="top" constant="5" id="a0N-4z-9jN"/>
                                                 <constraint firstAttribute="trailing" secondItem="CmC-Lk-Wd4" secondAttribute="trailing" constant="16" id="eyC-ep-zOY"/>
                                                 <constraint firstItem="gsV-cp-zW3" firstAttribute="leading" secondItem="d5H-nX-Afz" secondAttribute="leading" constant="16" id="wdy-nl-OK6"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="140" id="t9q-9n-czu">
                                         <rect key="frame" x="0.0" y="171" width="375" height="140"/>
@@ -435,7 +446,7 @@
                                                     <rect key="frame" x="16" y="13" width="343" height="22"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -503,7 +514,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eaV-Yj-Y9g" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="TbX-GK-QSC">
                     <connections>
-                        <action selector="hideKeyboardOnTap:" destination="d9w-bZ-ecp" id="rfK-aG-Bsp"/>
+                        <action selector="hideKeyboardOnTap:" destination="d9w-bZ-ecp" id="wDc-k4-Alv"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
